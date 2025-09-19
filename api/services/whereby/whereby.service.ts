@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import { env } from '@/env.mjs';
 import { errorResponse, successResponse } from '@/api/helpers/responseHelper';
-import { DecodedMeetingTypes } from '@/lib/types/decodedMeeting.types';
+import { DecodedMeeting } from '@/lib/types/decodedMeeting.types';
 
-export async function wherebyService(decodedMeeting: DecodedMeetingTypes) {
+export async function wherebyService(decodedMeeting: DecodedMeeting) {
     try {
         // Parse request body
         // const requestData: CreateMeetingRequest = await request.json().catch(() => ({}));

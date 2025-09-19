@@ -1,13 +1,13 @@
 import { render } from '@react-email/render';
 import { Resend } from 'resend';
 import { errorResponse, successResponse } from '@/api/helpers/responseHelper';
-import { EmailInformationTypes } from '@/lib/types/emailInformation.types';
+import { EmailInformation } from '@/lib/types/emailInformation.types';
 import Email from '@/api/helpers/email';
 import { generateICSIndiana } from '@/lib/utils/emailUtilities';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function resendService(emailInformation: EmailInformationTypes) {
+export async function resendService(emailInformation: EmailInformation) {
     const html = await render(Email(emailInformation), {pretty: true});
     const icsContent = generateICSIndiana(emailInformation);
     const to = emailInformation.participantEmail ?? emailInformation.organizerEmail;
