@@ -1,15 +1,13 @@
+import { DecodedMeeting } from '@/lib/types/decodedMeeting.types';
+import { wherebyService } from '@/api/services/whereby/whereby.service';
 
-import { getRoomURL } from '@/app/api/meetings/whereby/whereby';
-import { DecodedMeeting } from '@/types/meetingData';
-
-export async function getWherebyMeetingRoom(decodedMeeting: DecodedMeeting): Promise<any> {
-    // getRoomURL returns a NextResponse, but we want the data object
-    const response = await getRoomURL(decodedMeeting);
-    // If getRoomURL returns a NextResponse, extract the JSON data
+export async function getWherebyMeetingRoom(decodedMeeting: DecodedMeeting) {
+    // wherebyService returns a NextResponse, but we want the data object
+    const response = await wherebyService(decodedMeeting);
+    // If wherebyService returns a NextResponse, extract the JSON data
     if (response && typeof response.json === 'function') {
-        const data = await response.json();
-        return data;
+        return await response.json();
     }
-    // If getRoomURL returns a plain object, just return it
+    // If wherebyService returns a plain object, just return it
     return response;
 }

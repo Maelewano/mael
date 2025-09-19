@@ -1,10 +1,7 @@
 import { NextRequest } from 'next/server';
-
-import {
-    generateEmailInformationAndSendEmail
-} from '@/app/api/workflow/components/getEmailInformationAndSendEmail';
-import { errorResponse, successResponse } from '@/lib/helpers/apiHelpers';
-import { MeetingData } from '@/types/meetingData';
+import { generateEmailInformationAndSendEmail } from '@/api/helpers/generateEmailInformationAndSendEmail';
+import { errorResponse, successResponse } from '@/api/helpers/responseHelper';
+import { MeetingData } from '@/lib/types/meetingData.types';
 
 export async function POST(request: NextRequest) {
     const meetingData = await (await request.json()) as MeetingData;

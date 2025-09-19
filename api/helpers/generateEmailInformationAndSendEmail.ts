@@ -1,14 +1,13 @@
-import { sendEmail } from '@/app/api/resend/sendEmail';
 import { env } from '@/env.mjs';
-import { UserType } from '@/lib/enums/UserType.enum';
-import {
-    generateModeratorEmail,
-    generateModeratorToken,
-    generateParticipantEmail,
-    generateParticipantToken
-} from '@/lib/utils';
-import { EmailInformation, MeetingData, Moderator, Participant, TimeDetails } from '@/types/meetingData';
-
+import { MeetingData } from '@/lib/types/meetingData.types';
+import { TimeDetails } from '@/lib/types/timeDetails.types';
+import { Moderator } from '@/lib/types/moderator';
+import { generateModeratorToken, generateParticipantToken } from '@/lib/utils/tokenUtilities';
+import { URLType } from '@/lib/types/urlType';
+import { EmailInformation } from '@/lib/types/emailInformation.types';
+import { generateModeratorEmail, generateParticipantEmail } from '@/lib/utils/emailUtilities';
+import { Participant } from '@/lib/types/participant';
+import { resendService } from '@/api/services/resend/resend.service';
 
 export async function generateEmailInformationAndSendEmail(meetingData: MeetingData) {
     const timeDetails: TimeDetails = meetingData.timeDetails;
@@ -25,7 +24,7 @@ export async function generateModeratorEmailInformationAndSendEmail(
     const moderatorData: Moderator = meetingData.moderator;
     const meetingId = meetingData.meetingId;
     const moderatorToken = generateModeratorToken(moderatorData, timeDetails, tokenExpiryDate, meetingId);
-    const moderatorMeetingUrl: string = generateMeetingUrl(moderatorToken, UserType.MODERATOR)
+    const moderatorMeetingUrl: string = generateMeetingUrl(moderatorToken, URLType.MODERATOR)
     const moderatorEmailInfo: EmailInformation = {
         description: meetingData.summary,
         endDate: timeDetails.meetingEndTime,
@@ -37,7 +36,7 @@ export async function generateModeratorEmailInformationAndSendEmail(
         body: generateModeratorEmail(timeDetails, moderatorMeetingUrl),
         to: moderatorData.email
     } as EmailInformation
-    await sendEmail(moderatorEmailInfo);
+    await resendService(moderatorEmailInfo);
 }
 
 
@@ -57,7 +56,7 @@ export async function generateParticipantEmailInformationAndSendEmail(
 
 
     for (const [email, token] of Array.from(participantTokenDictionary)) {
-        const participantMeetingUrl: string = generateMeetingUrl(token, UserType.PARTICIPANT);
+        const participantMeetingUrl: string = generateMeetingUrl(token, URLType.PARTICIPANT);
 
         const participantEmailBody = generateParticipantEmail(meetingData.moderator, timeDetails, participantMeetingUrl);
         const participantEmailInfo: EmailInformation = {
@@ -72,11 +71,11 @@ export async function generateParticipantEmailInformationAndSendEmail(
             body: participantEmailBody,
             to: email
         }
-        await sendEmail(participantEmailInfo);
+        await resendService(participantEmailInfo);
     }
 }
 
-export function generateMeetingUrl(token: string, userType: UserType) {
-    const meetingRoom = userType === UserType.MODERATOR ? 'host' : 'join';
+export function generateMeetingUrl(token: string, urlType: URLType) {
+    const meetingRoom = urlType === URLType.MODERATOR ? 'host' : 'join';
     return `${env.NEXT_PUBLIC_APP_URL}/public-meeting/${meetingRoom}?token=${token}`;
 }

@@ -1,14 +1,9 @@
-import mongoose from "mongoose";
-import { NextRequest, NextResponse } from "next/server";
-
-import { URLType } from '@/lib/enums/URLType.enum';
-import { errorResponse, successResponse } from "@/lib/helpers/apiHelpers";
-import MeetingRoom from '@/lib/models/meeting-room';
-import { decodeToken } from "@/lib/utils";
-
-import { getWherebyMeetingRoom } from "../components/getWherebyMeetingRoom";
-
-
+import mongoose from 'mongoose';
+import { NextRequest, NextResponse } from 'next/server';
+import { decodeToken } from '@/lib/utils/tokenUtilities';
+import { errorResponse, successResponse } from '@/api/helpers/responseHelper';
+import { URLType } from '@/lib/types/urlType';
+import { getWherebyMeetingRoom } from '@/api/helpers/getWherebyMeetingRoom';
 
 export async function POST(request: NextRequest) {
     try {
