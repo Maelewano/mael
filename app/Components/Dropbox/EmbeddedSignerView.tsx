@@ -5,9 +5,9 @@
  * and send the meeting link to all participants.
  */
 
-import MeetingForm from '@/app/Components/Scheduler/MeetingForm';
 import Footer from '@/app/Components/Footer/Footer';
 import Navbar from '@/app/Components/Navbar/Navbar';
+import MeetingForm from '@/app/Components/Scheduler/MeetingForm';
 
 export default function PublicMeetingPage() {
     return (

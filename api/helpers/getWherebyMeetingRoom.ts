@@ -1,5 +1,5 @@
-import { DecodedMeeting } from '@/lib/types/decodedMeeting.types';
 import { wherebyService } from '@/api/services/whereby/whereby.service';
+import { DecodedMeeting } from '@/lib/types/decodedMeeting.types';
 
 export async function getWherebyMeetingRoom(decodedMeeting: DecodedMeeting) {
     // wherebyService returns a NextResponse, but we want the data object

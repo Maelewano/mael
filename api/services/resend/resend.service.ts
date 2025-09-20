@@ -1,8 +1,9 @@
 import { render } from '@react-email/render';
 import { Resend } from 'resend';
+
+import Email from '@/api/helpers/email';
 import { errorResponse, successResponse } from '@/api/helpers/responseHelper';
 import { EmailInformation } from '@/lib/types/emailInformation.types';
-import Email from '@/api/helpers/email';
 import { generateICSIndiana } from '@/lib/utils/emailUtilities';
 
 const resend = new Resend(process.env.RESEND_API_KEY);

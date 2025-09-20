@@ -4,16 +4,16 @@ import { FileSignature, XCircle } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useRef, useState } from "react"
 
-import * as Routes from "@/api/constants/appRoutes/routes"
-import SignatureUrlCard from "@/app/e-sign/component/SignatureUrlCard"
-import Footer from "@/components/Footer/Footer"
-import Navbar from "@/components/Navbars/Navbar"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { showToast } from "@/components/ui/toast"
+import SignatureUrlCard from "@/app/Components/Dropbox/SignatureUrlCard"
+import Footer from "@/app/Components/Footer/Footer"
+import Navbar from "@/app/Components/Navbar/Navbar"
+import { Button } from "@/app/Components/UI/button"
+import { Input } from "@/app/Components/UI/input"
+import { showToast } from "@/app/Components/UI/toast"
+import * as Routes from "@/app/Constants/appRoutes/routes"
 import { env } from "@/env.mjs"
-import { createMeetingRoom } from '@/lib/actions/workflow.actions';
-import { storage } from "@/utils/localStorage/localStorage"
+import { createMeetingRoom } from '@/lib/actions/meetings.actions';
+import { storage } from "@/lib/utils/localStorageUtilities"
 
 
 export default function JoinMeeting() {
@@ -203,7 +203,7 @@ export default function JoinMeeting() {
                     </Button>
                     <Button
                         variant="destructive"
-                        onClick={() => router.push(Routes.PUBLIC_MEETING)}
+                        onClick={() => router.push(Routes.SCHEDULER)}
                         className="mt-4 w-full"
                     >
                         Return to Meeting Scheduler

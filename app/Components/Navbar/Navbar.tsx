@@ -7,9 +7,8 @@ import { useState } from 'react';
 import { VscLaw } from 'react-icons/vsc';
 
 import { ThemeToggle } from '@/app/Components/UI/theme-toggle';
-
-import * as Routes from '@/app/Constants/appRoutes/routes';
 import { fontSans } from '@/app/config/font';
+import * as Routes from '@/app/Constants/appRoutes/routes';
 import { NavigationItem } from '@/lib/types/navbar.types';
 
 

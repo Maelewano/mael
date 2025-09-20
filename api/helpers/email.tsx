@@ -1,6 +1,7 @@
 import { Html } from '@react-email/html';
 import { Text } from '@react-email/text';
 import * as React from 'react';
+
 import { EmailInformation } from '@/lib/types/emailInformation.types';
 
 export function Email(emailInformation: EmailInformation) {

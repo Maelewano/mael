@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import { env } from '@/env.mjs';
+
 import { errorResponse, successResponse } from '@/api/helpers/responseHelper';
+import { env } from '@/env.mjs';
 import { DecodedMeeting } from '@/lib/types/decodedMeeting.types';
 
 export async function wherebyService(decodedMeeting: DecodedMeeting) {

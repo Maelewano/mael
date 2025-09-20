@@ -2,7 +2,7 @@
 
 import { PiFrameCornersBold } from "react-icons/pi";
 
-import EmbedRequestForm from '@/app/pages/components/Dropbox/EmbeddedSignerView';
+import EmbedRequestForm from '@/app/Components/Dropbox/EmbeddedSignerView';
 
 export default function SignatureRequestForm() {
     return (

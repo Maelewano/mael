@@ -4,9 +4,9 @@ import { Loader2, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
 
-import { showToast } from '@/components/ui/toast'
-import { createMeetingLink } from '@/lib/actions/workflow.actions';
-import { MeetingData, Participant } from '@/types/meetingData';
+import { showToast } from '@/app/Components/UI/toast'
+import { createMeetingLink } from '@/lib/actions/meetings.actions';
+import { MeetingData, Participant } from '@/lib/types/meetingData.types';
 
 
 export default function MeetingForm() {

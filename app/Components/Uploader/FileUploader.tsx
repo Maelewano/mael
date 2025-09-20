@@ -8,13 +8,13 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import { FaFilePdf, FaFileCsv, FaFileImage } from "react-icons/fa6";
 
 import {
-    validateFileSize, validateTotalPayloadSize, compressFile, formatFileSize, MAX_FILE_SIZE_MB, MAX_TOTAL_SIZE_MB
-} from "@/lib/utils/fileValidationUtilities";
-import { convertFileToUrl } from "@/lib/utils/utils";
-import {
     ACCEPTED_FILE_TYPES,
     ACCEPTED_FILE_TYPES_DESCRIPTION
 } from "@/lib/types/fileUploader.types";
+import {
+    validateFileSize, validateTotalPayloadSize, compressFile, formatFileSize, MAX_FILE_SIZE_MB, MAX_TOTAL_SIZE_MB
+} from "@/lib/utils/fileValidationUtilities";
+import { convertFileToUrl } from "@/lib/utils/utils";
 
 
 type FileUploaderProps = {

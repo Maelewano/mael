@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
 import { NextRequest, NextResponse } from 'next/server';
-import { decodeToken } from '@/lib/utils/tokenUtilities';
+
+import { getWherebyMeetingRoom } from '@/api/helpers/getWherebyMeetingRoom';
 import { errorResponse, successResponse } from '@/api/helpers/responseHelper';
 import { URLType } from '@/lib/types/urlType';
-import { getWherebyMeetingRoom } from '@/api/helpers/getWherebyMeetingRoom';
+import { decodeToken } from '@/lib/utils/tokenUtilities';
 
 export async function POST(request: NextRequest) {
     try {

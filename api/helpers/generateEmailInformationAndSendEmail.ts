@@ -1,13 +1,13 @@
-import { env } from '@/env.mjs';
-import { MeetingData } from '@/lib/types/meetingData.types';
-import { TimeDetails } from '@/lib/types/timeDetails.types';
-import { Moderator } from '@/lib/types/moderator';
-import { generateModeratorToken, generateParticipantToken } from '@/lib/utils/tokenUtilities';
-import { URLType } from '@/lib/types/urlType';
-import { EmailInformation } from '@/lib/types/emailInformation.types';
-import { generateModeratorEmail, generateParticipantEmail } from '@/lib/utils/emailUtilities';
-import { Participant } from '@/lib/types/participant';
 import { resendService } from '@/api/services/resend/resend.service';
+import { env } from '@/env.mjs';
+import { EmailInformation } from '@/lib/types/emailInformation.types';
+import { MeetingData } from '@/lib/types/meetingData.types';
+import { Moderator } from '@/lib/types/moderator';
+import { Participant } from '@/lib/types/participant';
+import { TimeDetails } from '@/lib/types/timeDetails.types';
+import { URLType } from '@/lib/types/urlType';
+import { generateModeratorEmail, generateParticipantEmail } from '@/lib/utils/emailUtilities';
+import { generateModeratorToken, generateParticipantToken } from '@/lib/utils/tokenUtilities';
 
 export async function generateEmailInformationAndSendEmail(meetingData: MeetingData) {
     const timeDetails: TimeDetails = meetingData.timeDetails;

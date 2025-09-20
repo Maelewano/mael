@@ -1,6 +1,6 @@
 import { EmailInformation } from '@/lib/types/emailInformation.types';
-import { TimeDetails } from '@/lib/types/timeDetails.types';
 import { Moderator } from '@/lib/types/moderator';
+import { TimeDetails } from '@/lib/types/timeDetails.types';
 
 export function generateParticipantEmail(
     moderator: Moderator,

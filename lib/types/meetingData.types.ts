@@ -1,6 +1,6 @@
-import { TimeDetails } from '@/lib/types/timeDetails.types';
 import { Moderator } from '@/lib/types/moderator';
 import { Participant } from '@/lib/types/participant';
+import { TimeDetails } from '@/lib/types/timeDetails.types';
 
 export interface MeetingData {
     meetingId: string;

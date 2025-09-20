@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken';
-import { Moderator } from '@/lib/types/moderator';
-import { TimeDetails } from '@/lib/types/timeDetails.types';
-import { Participant } from '@/lib/types/participant';
+
 import { DecodedMeeting } from '@/lib/types/decodedMeeting.types';
+import { Moderator } from '@/lib/types/moderator';
+import { Participant } from '@/lib/types/participant';
+import { TimeDetails } from '@/lib/types/timeDetails.types';
 import { URLType } from '@/lib/types/urlType';
 
 const INVITE_SECRET_KEY = process.env.INVITE_SECRET_KEY!;
