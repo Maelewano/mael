@@ -19,11 +19,6 @@ const navigation: NavigationItem[] = [
         current: false,
     },
     {
-        name: "About",
-        href: Routes.ABOUT,
-        current: false,
-    },
-    {
         name: "Team",
         href: Routes.TEAM,
         current: false,

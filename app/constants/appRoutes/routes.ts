@@ -1,10 +1,9 @@
 // Public routes
 export const HOME = "/";
-export const ABOUT = "/about";
-export const TEAM = "/team";
-export const FEATURES = "/features";
+export const TEAM = "/#team";
+export const FEATURES = "/#features";
 export const FAQS = "/faq";
-export const DISCLAIMER = "/"
+export const DISCLAIMER = "/disclaimer"
 
 // Scheduling and Meeting routes
 export const SCHEDULER = "/schedule";

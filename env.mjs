@@ -5,8 +5,16 @@ export const env = createEnv({
     server: {
         ANALYZE: z
             .enum(["true", "false"])
+            .default("false")
             .optional()
             .transform((v) => v === "true"),
+        ENABLE_SOURCE_MAPS: z
+            .enum(["true", "false"])
+            .default("false")
+            .transform((v) => v === "true"),
+        NODE_ENV: z
+            .enum(["development", "test", "production"])
+            .default("development"),
         NGROK_AUTHTOKEN: z.string(),
         NEXT_DROPBOX_SIGN_API_KEY: z.string(),
         NEXT_PUBLIC_EMAIL_HOST: z.string(),
@@ -19,9 +27,6 @@ export const env = createEnv({
     },
     client: {
         NEXT_PUBLIC_WHEREBY_API_KEY: z.string(),
-        NEXT_PUBLIC_WHEREBY_MEET_ADMIN_URL: z.string(),
-        NEXT_PUBLIC_WHEREBY_MEET_CLIENT_URL: z.string(),
-        NEXT_PUBLIC_WHEREBY_PERSONAL_URL: z.string(),
         NEXT_PUBLIC_JITSI_APP_ID: z.string(),
         NEXT_PUBLIC_JITSI_API_KEY: z.string(),
         NEXT_PUBLIC_DROPBOX_SIGN_CLIENT_ID: z.string(),
@@ -32,12 +37,11 @@ export const env = createEnv({
     },
     runtimeEnv: {
         ANALYZE: process.env.ANALYZE,
+        ENABLE_SOURCE_MAPS: process.env.ENABLE_SOURCE_MAPS,
+        NODE_ENV: process.env.NODE_ENV,
         NGROK_AUTHTOKEN: process.env.NGROK_AUTHTOKEN,
         NEXT_PUBLIC_ADMIN_PASSKEY: process.env.NEXT_PUBLIC_ADMIN_PASSKEY,
         NEXT_PUBLIC_WHEREBY_API_KEY: process.env.NEXT_PUBLIC_WHEREBY_API_KEY,
-        NEXT_PUBLIC_WHEREBY_MEET_ADMIN_URL: process.env.NEXT_PUBLIC_WHEREBY_MEET_ADMIN_URL,
-        NEXT_PUBLIC_WHEREBY_MEET_CLIENT_URL: process.env.NEXT_PUBLIC_WHEREBY_MEET_CLIENT_URL,
-        NEXT_PUBLIC_WHEREBY_PERSONAL_URL: process.env.NEXT_PUBLIC_WHEREBY_PERSONAL_URL,
         NEXT_PUBLIC_JITSI_APP_ID: process.env.NEXT_PUBLIC_JITSI_APP_ID,
         NEXT_PUBLIC_JITSI_API_KEY: process.env.NEXT_PUBLIC_JITSI_API_KEY,
         NEXT_DROPBOX_SIGN_API_KEY: process.env.NEXT_DROPBOX_SIGN_API_KEY,

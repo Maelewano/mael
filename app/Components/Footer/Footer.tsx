@@ -17,12 +17,12 @@ export default function Footer() {
                 {/* Brand Section */}
                 <div className="text-center lg:text-left">
                     <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-                        <h4 className="text-sm text-gray-600 dark:text-gray-300">
-                            &copy; {new Date().getFullYear()}
-                        </h4>
                         <h1 className="mb-4 max-w-2xl text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl xl:text-6xl dark:text-white">
                             Mael
                         </h1>
+                        <h4 className="text-sm text-gray-600 dark:text-gray-300">
+                            &copy; {new Date().getFullYear()}
+                        </h4>
                     </div>
                     <p className="text-center text-xs font-semibold text-indigo-600 lg:text-left dark:text-indigo-400">
                         MAELEWANO : HARMONY

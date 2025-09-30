@@ -5,17 +5,17 @@ import {
     FileText,
     Clock,
     CheckCircle,
-    Play,
     Star,
     Lock,
 } from "lucide-react";
+
 import { useState } from "react";
 
-import Footer from "@/app/Components/Footer/Footer";
-import Navbar from "@/app/Components/Navbar/Navbar";
 import { Badge } from "@/app/Components/UI/badge";
 import { Button } from "@/app/Components/UI/button";
 import { Card } from "@/app/Components/UI/card";
+import Team from '@/app/Components/Team/Team';
+import Features from '@/app/Components/Features/Features';
 
 
 export default function HomePage() {
@@ -29,9 +29,8 @@ export default function HomePage() {
 
     return (
         <div className="flex min-h-screen min-w-full flex-col">
-            <Navbar />
-            <main className="flex grow items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900">
-                <section className="relative w-full overflow-hidden bg-gradient-to-br from-blue-50/50 via-white to-indigo-50/50 py-6 dark:from-gray-950/50 dark:via-gray-900/50 dark:to-gray-800/50 lg:py-16">
+            <main className="flex grow flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900">
+                <section className="relative w-full overflow-hidden py-2 lg:py-6">
                     {/* Enhanced Background Pattern */}
                     <div className="absolute inset-0 opacity-20 dark:opacity-10">
                         <div className="size-full bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800"
@@ -51,8 +50,8 @@ export default function HomePage() {
                             <div className="space-y-8">
                                 {/* Enhanced Badge */}
                                 <Badge variant="secondary" className="w-fit border border-blue-200 bg-blue-50 text-blue-700 shadow-sm hover:bg-blue-100 dark:border-blue-800 dark:bg-blue-950/50 dark:text-blue-300 dark:hover:bg-blue-900/50">
-                                    <Shield className="mr-1 size-3 text-green-400" />
-                                    Trusted by Legal Professionals
+                                    <Shield className="mr-1 size-3 text-green-300 dark:text-green-500" />
+                                    Trusted by 500+ Users
                                 </Badge>
 
                                 {/* Main Heading with better contrast */}
@@ -61,9 +60,8 @@ export default function HomePage() {
                                         Mael
                                     </h1>
                                     <p className="mb-6 max-w-2xl font-semibold text-gray-700 dark:text-gray-200 md:text-lg lg:mb-8 lg:text-xl">
-                                        Maelewano is poised to emerge as a transformative tool in communication and contracts.
-                                        It designed to meet the increasing demand for secure video conferencing,
-                                        consultations and document signing solutions.
+                                        Mael is a platform designed to meet the increasing demand for secure,
+                                        efficient, and remote video conferencing and document signing solutions.
                                     </p>
                                 </div>
 
@@ -77,20 +75,6 @@ export default function HomePage() {
                                         <CheckCircle className="size-5 text-green-600 dark:text-green-400" />
                                         <span className="font-medium text-gray-800 dark:text-gray-200">Legally-Binding E-Signature</span>
                                     </div>
-                                </div>
-
-                                {/* Enhanced Action Buttons */}
-                                <div className="flex flex-col gap-4 sm:flex-row">
-                                    <Button
-                                        variant="outline"
-                                        size="lg"
-                                        className="border-gray-300 bg-white/80 px-8 py-3 text-lg text-gray-700 shadow-md backdrop-blur-sm transition-all hover:bg-white hover:shadow-lg dark:border-gray-600 dark:bg-gray-800/80 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-gray-700"
-                                        onClick={handlePlayDemo}
-                                        disabled={isPlayingDemo}
-                                    >
-                                        <Play className="mr-2 size-4" />
-                                        {isPlayingDemo ? "Playing Demo..." : "Watch Demo"}
-                                    </Button>
                                 </div>
 
                                 {/* Trust Indicators */}
@@ -157,7 +141,7 @@ export default function HomePage() {
                                     </Button>
                                 </Card>
                                 {/* Floating Stats */}
-                                <div className="absolute -right-6 -bottom-4 rounded-lg border border-gray-200 bg-white/90 p-4 shadow-lg backdrop-blur-sm dark:border-gray-600 dark:bg-gray-800/90 dark:shadow-2xl">
+                                <div className="absolute -right-4 -top-4 rounded-lg border border-gray-200 bg-white/90 p-4 shadow-lg backdrop-blur-sm dark:border-gray-600 dark:bg-gray-800/90 dark:shadow-2xl">
                                     <div className="text-center">
                                         <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">99.9%</div>
                                         <div className="text-xs text-gray-600 dark:text-gray-300">Uptime</div>
@@ -173,8 +157,10 @@ export default function HomePage() {
                         </div>
                     </div>
                 </section>
+
+                <Team/>
+                <Features/>
             </main>
-            <Footer />
         </div>
     );
 }

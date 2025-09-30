@@ -36,10 +36,6 @@ export const generateMetadata = (path: string): Metadata => {
         jitsi: {
             title: "Jitsi | MAEL",
             description: "Jitsi video conferencing platform",
-        },
-        methodNotAllowed: {
-            title: "405 - Method Not Allowed",
-            description: "The requested method is not supported for the requested resource.",
         }
     };
 
