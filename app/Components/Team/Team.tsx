@@ -1,11 +1,7 @@
 "use client";
 
-import {Mail, MessageSquare} from "lucide-react";
-
-import ContactModal from "@/app/Components/Contact/Contact";
 import TeamMemberCard from "./TeamMemberCard";
 import {Badge} from "@/app/Components/UI/badge";
-import {Button} from "@/app/Components/UI/button";
 import {teamMembers} from "@/lib/types/team";
 
 export default function Team() {

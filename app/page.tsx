@@ -31,7 +31,7 @@ export default function HomePage() {
         <div className="flex min-h-screen min-w-full flex-col">
             <main className="flex grow flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900">
                 <section className="relative w-full overflow-hidden py-2 lg:py-6">
-                    {/* Enhanced Background Pattern */}
+                    {/*  Background Pattern */}
                     <div className="absolute inset-0 opacity-20 dark:opacity-10">
                         <div className="size-full bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800"
                              style={{
@@ -48,7 +48,7 @@ export default function HomePage() {
                         <div className="grid items-center gap-12 lg:grid-cols-2">
                             {/* Left Column - Content */}
                             <div className="space-y-8">
-                                {/* Enhanced Badge */}
+                                {/*  Badge */}
                                 <Badge variant="secondary" className="w-fit border border-blue-200 bg-blue-50 text-blue-700 shadow-sm hover:bg-blue-100 dark:border-blue-800 dark:bg-blue-950/50 dark:text-blue-300 dark:hover:bg-blue-900/50">
                                     <Shield className="mr-1 size-3 text-green-300 dark:text-green-500" />
                                     Trusted by 500+ Users
@@ -65,7 +65,7 @@ export default function HomePage() {
                                     </p>
                                 </div>
 
-                                {/* Enhanced Feature Highlights */}
+                                {/*  Feature Highlights */}
                                 <div className="flex flex-wrap gap-6">
                                     <div className="flex items-center space-x-2">
                                         <CheckCircle className="size-5 text-green-600 dark:text-green-400" />

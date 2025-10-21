@@ -11,3 +11,5 @@ export interface MeetingData {
     isLocked: boolean;
     requireKnocking: boolean;
 }
+
+export type { Participant };

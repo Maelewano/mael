@@ -27,6 +27,11 @@ const navigation: NavigationItem[] = [
         name: "FAQs",
         href: Routes.FAQS,
         current: false,
+    },
+    {
+        name: "Schedule",
+        href: Routes.SCHEDULER,
+        current: false,
     }
 ];
 

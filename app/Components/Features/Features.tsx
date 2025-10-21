@@ -2,7 +2,6 @@ import { CheckCircle, Lock } from 'lucide-react';
 import { FaShieldAlt, FaUsers, FaClock, FaCheckCircle } from 'react-icons/fa'; // Import icons
 
 import { Badge } from "@/app/Components/UI/badge";
-import { Card } from "@/app/Components/UI/card";
 
 const securityFeatures = [
     "End-to-end encryption",
