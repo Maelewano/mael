@@ -17,7 +17,7 @@ export default function Team() {
                             >
                                 Our Team
                             </Badge>
-                            <h2 className="mb-4 text-3xl font-bold text-gray-900 lg:text-4xl">
+                            <h2 className="mb-4 text-3xl font-extrabold leading-none text-gray-900 lg:text-4xl">
                                 Meet the Team
                             </h2>
                             <p className="mx-auto max-w-3xl text-xl text-gray-600">

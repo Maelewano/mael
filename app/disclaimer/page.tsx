@@ -98,11 +98,11 @@ export default async function PoliciesPage() {
             <p className="ml-6 mb-4">
               Email:{" "}
               <a
-                href="mailto:support@Mael.com"
+                href="mailto:support@mael-group.com"
                 aria-label="Email Mael support"
                 className="text-blue-600 hover:underline dark:text-blue-400"
               >
-                support@Mael.com
+                support@mael-group.com
               </a>
               <br />
               Github:{" "}
