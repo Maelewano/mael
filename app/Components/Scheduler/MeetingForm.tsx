@@ -108,24 +108,28 @@ export default function MeetingForm() {
 
   return (
     <div className="container mx-auto w-full">
-      <div className="rounded-lg bg-white p-8 shadow-md dark:bg-gray-800">
-        <h2 className="mb-8 text-center text-3xl font-bold text-gray-900 dark:text-white">
-          Schedule a Meeting
-        </h2>
+      <div className="rounded-xl border border-gray-200 bg-white p-8 shadow-xl transition-all duration-300 hover:shadow-2xl">
+        <div className="mb-8 text-center">
+          <h2 className="text-3xl font-bold text-gray-900">
+            Schedule a Meeting
+          </h2>
+          <div className="mx-auto mt-4 h-1 w-20 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+          <p className="mt-2 text-gray-600">Fill out the details below to create your meeting</p>
+        </div>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-8 md:px-4 lg:px-8"
         >
           {/* Moderator Information */}
-          <div className="rounded-md ">
-            <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+          <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 transition-all duration-200 hover:border-blue-300 hover:bg-blue-50/50">
+            <h3 className="mb-4 text-lg font-semibold text-gray-900">
               Moderator Information
             </h3>
 
             <div className="grid gap-4 md:grid-cols-2">
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200">
+                <label className="mb-1 block text-sm font-medium text-gray-700">
                   Email Address
                 </label>
                 <input
@@ -137,7 +141,7 @@ export default function MeetingForm() {
                       message: "Invalid email address",
                     },
                   })}
-                  className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+                  className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   placeholder="email@example.com"
                 />
                 {errors.moderator?.email && (
@@ -148,7 +152,7 @@ export default function MeetingForm() {
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200">
+                <label className="mb-1 block text-sm font-medium text-gray-700">
                   Phone Number
                 </label>
                 <input
@@ -160,7 +164,7 @@ export default function MeetingForm() {
                       message: "Phone format: 123-456-7890",
                     },
                   })}
-                  className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+                  className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   placeholder="123-456-7890"
                 />
                 {errors.moderator?.phoneNumber && (
@@ -173,15 +177,15 @@ export default function MeetingForm() {
           </div>
 
           {/* Participants */}
-          <div className="rounded-md ">
+          <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 transition-all duration-200 hover:border-blue-300 hover:bg-blue-50/50">
             <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-semibold text-gray-900">
                 Participants
               </h3>
               <button
                 type="button"
                 onClick={addParticipant}
-                className="flex items-center rounded-md bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600"
+                className="flex items-center rounded-md bg-blue-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-blue-600 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
                 <Plus className="mr-1 size-4" />
                 Add Participant
@@ -191,10 +195,10 @@ export default function MeetingForm() {
             {fields.map((field, index) => (
               <div
                 key={field.id}
-                className="mb-4 rounded-md border border-gray-200 p-4 dark:border-gray-600"
+                className="mb-4 rounded-lg border border-gray-300 bg-white p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md"
               >
                 <div className="mb-2 flex items-center justify-between">
-                  <h4 className="text-14-medium text-gray-800 dark:text-gray-200">
+                  <h4 className="text-14-medium text-gray-800">
                     Participant {index + 1}
                   </h4>
                   {index > 0 && (
@@ -210,7 +214,7 @@ export default function MeetingForm() {
 
                 <div className="grid gap-4 md:grid-cols-2">
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200">
+                    <label className="mb-1 block text-sm font-medium text-gray-700">
                       Email Address
                     </label>
                     <input
@@ -222,7 +226,7 @@ export default function MeetingForm() {
                           message: "Invalid email address",
                         },
                       })}
-                      className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+                      className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       placeholder="email@example.com"
                     />
                     {errors.participants?.[index]?.email && (
@@ -233,7 +237,7 @@ export default function MeetingForm() {
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200">
+                    <label className="mb-1 block text-sm font-medium text-gray-700">
                       Phone Number
                     </label>
                     <input
@@ -245,7 +249,7 @@ export default function MeetingForm() {
                           message: "Phone format: 123-456-7890",
                         },
                       })}
-                      className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+                      className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       placeholder="123-456-7890"
                     />
                     {errors.participants?.[index]?.phoneNumber && (
@@ -260,20 +264,20 @@ export default function MeetingForm() {
           </div>
 
           {/* Meeting Summary */}
-          <div className="rounded-md ">
-            <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+          <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 transition-all duration-200 hover:border-blue-300 hover:bg-blue-50/50">
+            <h3 className="mb-4 text-lg font-semibold text-gray-900">
               Meeting Summary
             </h3>
 
             <div>
-              <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200">
+              <label className="mb-1 block text-sm font-medium text-gray-700">
                 Summary
               </label>
               <textarea
                 {...register("summary", {
                   required: "Meeting summary is required",
                 })}
-                className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+                className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 placeholder="Enter a brief summary of the meeting purpose"
                 rows={3}
               />
@@ -286,14 +290,14 @@ export default function MeetingForm() {
           </div>
 
           {/* Meeting Date and Time */}
-          <div className="rounded-md ">
-            <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+          <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 transition-all duration-200 hover:border-blue-300 hover:bg-blue-50/50">
+            <h3 className="mb-4 text-lg font-semibold text-gray-900">
               Meeting Date and Time
             </h3>
 
             <div className="grid gap-4 md:grid-cols-2">
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200">
+                <label className="mb-1 block text-sm font-medium text-gray-700">
                   Start Date and Time
                 </label>
                 <input
@@ -301,7 +305,7 @@ export default function MeetingForm() {
                   {...register("timeDetails.meetingStartTime", {
                     required: "Start date and time is required",
                   })}
-                  className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+                  className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
                 {errors.timeDetails?.meetingStartTime && (
                   <span className="mt-1 text-sm text-red-500">
@@ -311,7 +315,7 @@ export default function MeetingForm() {
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200">
+                <label className="mb-1 block text-sm font-medium text-gray-700">
                   End Date and Time
                 </label>
                 <input
@@ -323,7 +327,7 @@ export default function MeetingForm() {
                         new Date(formValues.timeDetails.meetingStartTime) ||
                       "End time must be after start time",
                   })}
-                  className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+                  className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
                 {errors.timeDetails?.meetingEndTime && (
                   <span className="mt-1 text-sm text-red-500">
@@ -335,13 +339,13 @@ export default function MeetingForm() {
           </div>
 
           {/* Room Lock Settings */}
-          <div className="rounded-md ">
-            <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+          <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 transition-all duration-200 hover:border-blue-300 hover:bg-blue-50/50">
+            <h3 className="mb-4 text-lg font-semibold text-gray-900">
               Room Access Settings
             </h3>
 
             <div className="mb-4">
-              <p className="mb-2 text-sm text-gray-600 dark:text-gray-300">
+              <p className="mb-2 text-sm text-gray-600">
                 Lock the room for participants? (Host will always have access)
               </p>
 
@@ -358,7 +362,7 @@ export default function MeetingForm() {
                   />
                   <label
                     htmlFor="locked"
-                    className="ml-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
+                    className="ml-2 block text-sm font-medium text-gray-700"
                   >
                     Locked (Participants wait until admitted)
                   </label>
@@ -375,7 +379,7 @@ export default function MeetingForm() {
                   />
                   <label
                     htmlFor="unlocked"
-                    className="ml-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
+                    className="ml-2 block text-sm font-medium text-gray-700"
                   >
                     Unlocked (Participants join directly)
                   </label>
@@ -385,11 +389,12 @@ export default function MeetingForm() {
           </div>
 
           {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="mt-2 rounded-md bg-green-500 px-4 py-2 text-white hover:bg-green-600 disabled:cursor-not-allowed disabled:opacity-50"
-          >
+          <div className="flex justify-center pt-4">
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="min-w-[200px] rounded-lg bg-gradient-to-r from-indigo-500 to-indigo-600 px-8 py-3 text-lg font-semibold text-white shadow-lg transition-all duration-200 hover:from-indigo-600 hover:to-indigo-700 hover:shadow-xl hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:transform-none disabled:shadow-md"
+            >
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 inline size-4 animate-spin" />
@@ -399,6 +404,7 @@ export default function MeetingForm() {
               "Schedule Meeting"
             )}
           </button>
+          </div>
         </form>
       </div>
     </div>

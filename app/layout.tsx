@@ -1,4 +1,3 @@
-import { ThemeProvider } from 'next-themes';
 import "./globals.css";
 import Navbar from '@/app/Components/Navbar/Navbar';
 import Footer from'@/app/Components/Footer/Footer';
@@ -13,15 +12,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body
         className={`${fontSans.variable} antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Navbar />
-          {children}
-          <Footer />
-        </ThemeProvider>
+        <Navbar />
+        {children}
+        <Footer />
       </body>
     </html>
   );

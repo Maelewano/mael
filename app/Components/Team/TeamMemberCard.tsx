@@ -13,11 +13,11 @@ interface TeamMemberCardProps {
 
 export default function TeamMemberCard({ member, index }: TeamMemberCardProps) {
     return (
-        <Card className="group overflow-hidden border-0 bg-white shadow-lg transition-all duration-300 hover:shadow-2xl dark:bg-gray-800">
+        <Card className="group overflow-hidden border-0 bg-white shadow-lg transition-all duration-300 hover:shadow-2xl">
             <CardContent className="p-6">
                 {/* Round Avatar */}
                 <div className="relative mb-6 flex justify-center">
-                    <div className="relative size-32 overflow-hidden rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 shadow-lg ring-4 ring-white transition-all duration-300 group-hover:ring-blue-200 dark:from-blue-900 dark:to-indigo-900 dark:ring-gray-700 dark:group-hover:ring-blue-800">
+                    <div className="relative size-32 overflow-hidden rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 shadow-lg ring-4 ring-white transition-all duration-300 group-hover:ring-blue-200">
                         <Image
                             src={member.imageUrl}
                             alt={member.name}
@@ -30,13 +30,13 @@ export default function TeamMemberCard({ member, index }: TeamMemberCardProps) {
                     </div>
                     {/* LinkedIn Button */}
                     <div className="absolute -bottom-2 -right-2 translate-y-2 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                        <Button size="sm" variant="secondary" className="size-10 rounded-full bg-white p-0 shadow-lg hover:bg-blue-50 dark:bg-gray-700 dark:hover:bg-blue-900" asChild>
+                        <Button size="sm" variant="secondary" className="size-10 rounded-full bg-white p-0 shadow-lg hover:bg-blue-50" asChild>
                             <Link
                                 href={member.linkedinUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                <FaLinkedin className="size-5 text-blue-600 dark:text-blue-400" />
+                                <FaLinkedin className="size-5 text-blue-600" />
                             </Link>
                         </Button>
                     </div>
@@ -45,23 +45,23 @@ export default function TeamMemberCard({ member, index }: TeamMemberCardProps) {
                 {/* Content */}
                 <div className="text-center">
                     {/* Name & Title */}
-                    <h2 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">
+                    <h2 className="mb-2 text-xl font-bold text-gray-900">
                         {member.name}
                     </h2>
-                    <p className="mb-1 text-lg font-medium text-blue-600 dark:text-blue-400">
+                    <p className="mb-1 text-lg font-medium text-blue-600">
                         {member.title}
                     </p>
 
                     {/* Location (if available in your TeamMember type) */}
                     {/* Uncomment if you have location in your TeamMember type
-                    <div className="flex items-center justify-center text-sm text-gray-500 dark:text-gray-400 mb-3">
+                    <div className="flex items-center justify-center text-sm text-gray-500 mb-3">
                         <MapPin className="w-4 h-4 mr-1" />
                         {member.location}
                     </div>
                     */}
 
                     {/* Bio */}
-                    <p className="mb-4 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+                    <p className="mb-4 text-sm leading-relaxed text-gray-600">
                         {member.bio}
                     </p>
 
@@ -71,7 +71,7 @@ export default function TeamMemberCard({ member, index }: TeamMemberCardProps) {
                             href={member.linkedinUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-sm text-blue-600 transition-colors duration-200 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                            className="inline-flex items-center gap-2 text-sm text-blue-600 transition-colors duration-200 hover:text-blue-800"
                         >
                             <FaLinkedin className="text-lg" />
                             <span>Connect on LinkedIn</span>

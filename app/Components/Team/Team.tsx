@@ -13,14 +13,14 @@ export default function Team() {
                         <div className="mb-16 text-center">
                             <Badge
                                 variant="secondary"
-                                className="mb-4 bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
+                                className="mb-4 bg-blue-100 text-blue-700"
                             >
                                 Our Team
                             </Badge>
-                            <h2 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white lg:text-4xl">
+                            <h2 className="mb-4 text-3xl font-bold text-gray-900 lg:text-4xl">
                                 Meet the Team
                             </h2>
-                            <p className="mx-auto max-w-3xl text-xl text-gray-600 dark:text-gray-300">
+                            <p className="mx-auto max-w-3xl text-xl text-gray-600">
                                 Our team has designed <strong>Mael</strong> to deliver a secure and efficient platform for conferencing and document signing.
                             </p>
                         </div>
