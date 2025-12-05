@@ -113,7 +113,7 @@ export default function MeetingForm() {
           <h2 className="text-3xl font-bold text-gray-900">
             Schedule a Meeting
           </h2>
-          <div className="mx-auto mt-4 h-1 w-20 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+          <div className="mx-auto m-4 h-1 w-20 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500"></div>
           <p className="mt-2 text-gray-600">Fill out the details below to create your meeting</p>
         </div>
 
