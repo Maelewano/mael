@@ -185,7 +185,7 @@ export default function MeetingForm() {
               <button
                 type="button"
                 onClick={addParticipant}
-                className="flex items-center rounded-md bg-blue-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-blue-600 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="flex items-center rounded-md bg-indigo-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-indigo-600 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 <Plus className="mr-1 size-4" />
                 Add Participant
