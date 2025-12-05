@@ -4,6 +4,7 @@ export interface TeamMember {
     bio: string;
     imageUrl: string;
     linkedinUrl: string;
+    location: string;
 }
 
 export const teamMembers: TeamMember[] = [
@@ -13,6 +14,7 @@ export const teamMembers: TeamMember[] = [
         bio: "Research Software Engineer",
         imageUrl: "/images/team/primus.jpeg",
         linkedinUrl: "https://www.linkedin.com/in/chimdia-primus-kabuo/",
+        location: "Indianapolis, Indiana, USA",
     },
     {
         name: "Michael K Nwokocha",
@@ -20,5 +22,6 @@ export const teamMembers: TeamMember[] = [
         bio: "Full Stack Developer",
         imageUrl: "/images/team/micheal.jpeg",
         linkedinUrl: "https://www.linkedin.com/in/kesiride-nwokocha-78a30959/",
+        location: "Austin, Texas, USA",
     }
 ];

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { MapPin } from 'lucide-react';
 import { FaLinkedin } from 'react-icons/fa6';
 
 import { Button } from "@/app/Components/UI/button";
@@ -17,7 +18,7 @@ export default function TeamMemberCard({ member, index }: TeamMemberCardProps) {
             <CardContent className="p-6">
                 {/* Round Avatar */}
                 <div className="relative mb-6 flex justify-center">
-                    <div className="relative size-32 overflow-hidden rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 shadow-lg ring-4 ring-white transition-all duration-300 group-hover:ring-blue-200">
+                    <div className="relative size-32 overflow-hidden rounded-full bg-gradient-to-br from-indigo-100 to-indigo-400 shadow-lg ring-4 ring-white transition-all duration-300 group-hover:ring-indigo-400">
                         <Image
                             src={member.imageUrl}
                             alt={member.name}
@@ -28,9 +29,23 @@ export default function TeamMemberCard({ member, index }: TeamMemberCardProps) {
                             unoptimized
                         />
                     </div>
+                    {/* Location Pin Button */}
+                    <div className="absolute -bottom-2 -left-2 translate-y-2 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                        <Button size="sm" variant="secondary" className="size-10 rounded-full p-0 shadow-lg" asChild>
+                            <Link
+                                href={`https://maps.google.com/?q=${encodeURIComponent(member.location)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title={`View ${member.location} on Google Maps`}
+                                className="flex items-center justify-center"
+                            >
+                                <MapPin className="size-4 text-green-600" />
+                            </Link>
+                        </Button>
+                    </div>
                     {/* LinkedIn Button */}
                     <div className="absolute -bottom-2 -right-2 translate-y-2 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                        <Button size="sm" variant="secondary" className="size-10 rounded-full bg-white p-0 shadow-lg hover:bg-blue-50" asChild>
+                        <Button size="sm" variant="secondary" className="size-10 rounded-full p-0 shadow-lg" asChild>
                             <Link
                                 href={member.linkedinUrl}
                                 target="_blank"
@@ -52,13 +67,11 @@ export default function TeamMemberCard({ member, index }: TeamMemberCardProps) {
                         {member.title}
                     </p>
 
-                    {/* Location (if available in your TeamMember type) */}
-                    {/* Uncomment if you have location in your TeamMember type
-                    <div className="flex items-center justify-center text-sm text-gray-500 mb-3">
-                        <MapPin className="w-4 h-4 mr-1" />
+                    {/* Location */}
+                    <div className="mb-3 flex items-center justify-center text-sm text-gray-500">
+                        <MapPin className="mr-1 size-4" />
                         {member.location}
                     </div>
-                    */}
 
                     {/* Bio */}
                     <p className="mb-4 text-sm leading-relaxed text-gray-600">
