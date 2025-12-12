@@ -1,4 +1,4 @@
-import { resendService } from '@/api/services/resend/resend.service';
+import { resendService } from '@/app/api/services/resend/resend.service';
 import { env } from '@/env.mjs';
 import { EmailInformation } from '@/lib/types/emailInformation.types';
 import { MeetingData } from '@/lib/types/meetingData.types';
@@ -77,5 +77,5 @@ export async function generateParticipantEmailInformationAndSendEmail(
 
 export function generateMeetingUrl(token: string, urlType: URLType) {
     const meetingRoom = urlType === URLType.MODERATOR ? 'host' : 'join';
-    return `${env.NEXT_PUBLIC_APP_URL}/public-meeting/${meetingRoom}?token=${token}`;
+    return `${env.NEXT_PUBLIC_APP_URL}/${meetingRoom}?token=${token}`;
 }

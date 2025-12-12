@@ -1,8 +1,8 @@
 import { render } from '@react-email/render';
 import { Resend } from 'resend';
 
-import Email from '@/api/helpers/email';
-import { errorResponse, successResponse } from '@/api/helpers/responseHelper';
+import Email from '@/app/api/helpers/email';
+import { errorResponse, successResponse } from '@/app/api/helpers/responseHelper';
 import { EmailInformation } from '@/lib/types/emailInformation.types';
 import { generateICSIndiana } from '@/lib/utils/emailUtilities';
 
@@ -19,7 +19,7 @@ export async function resendService(emailInformation: EmailInformation) {
 
     try {
         await resend.emails.send({
-            from: 'Aegis <info@eandncorp.com>',
+            from: 'Mael <info@mael-group.com>',
             to,
             subject: 'Project Meeting Invite',
             html,

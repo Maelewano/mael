@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 
-import { generateEmailInformationAndSendEmail } from '@/api/helpers/generateEmailInformationAndSendEmail';
-import { errorResponse, successResponse } from '@/api/helpers/responseHelper';
+import { generateEmailInformationAndSendEmail } from '@/app/api/helpers/generateEmailInformationAndSendEmail';
+import { errorResponse, successResponse } from '@/app/api/helpers/responseHelper';
 import { MeetingData } from '@/lib/types/meetingData.types';
 
 export async function POST(request: NextRequest) {

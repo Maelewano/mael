@@ -9,10 +9,10 @@ import Image from "next/image";
 import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 
-import * as Routes from "@/api/constants/appRoutes/routes";
-import {Button} from "@/components/ui/button";
-import {cn} from "@/lib/utils";
-import {SuccessfulRequestProps} from "@/types/onsuccess.types";
+import * as Routes from "@/app/constants/appRoutes/routes";
+import {Button} from "@/app/Components/UI/button";
+import {cn} from "@/lib/utils/utils";
+import { SuccessfulRequestProps } from '@/lib/types/onSuccess.types';
 
 export const SuccessfulRequest = ({
                                       title = "Request Successful",
