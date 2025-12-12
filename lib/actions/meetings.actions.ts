@@ -22,7 +22,7 @@ export async function createMeetingLink(meetingData: MeetingData) {
 export async function createMeetingRoom(token: string) {
     if (!apiKey) throw new Error("APP_SECRET_KEY is missing");
 
-    const response =  await fetch(`${env.NEXT_PUBLIC_APP_URL}/api/workflow/createMeetingRoom`, {
+    const response =  await fetch(`${env.NEXT_PUBLIC_APP_URL}/api/createMeetingRoom`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
