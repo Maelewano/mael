@@ -1,4 +1,4 @@
-import { wherebyService } from '@/api/services/whereby/whereby.service';
+import { wherebyService } from '@/app/api/services/whereby/whereby.service';
 import { DecodedMeeting } from '@/lib/types/decodedMeeting.types';
 
 export async function getWherebyMeetingRoom(decodedMeeting: DecodedMeeting) {

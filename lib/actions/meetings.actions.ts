@@ -7,7 +7,7 @@ const apiKey = process.env.APP_SECRET_KEY;
 export async function createMeetingLink(meetingData: MeetingData) {
     if (!apiKey) throw new Error("APP_SECRET_KEY is missing");
 
-    const response = await fetch(`${env.NEXT_PUBLIC_APP_URL}/api/workflow/createMeetingLink`, {
+    const response = await fetch(`${env.NEXT_PUBLIC_APP_URL}/api/createMeetingLink`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

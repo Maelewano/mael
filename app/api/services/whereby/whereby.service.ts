@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { errorResponse, successResponse } from '@/api/helpers/responseHelper';
+import { errorResponse, successResponse } from '@/app/api/helpers/responseHelper';
 import { env } from '@/env.mjs';
 import { DecodedMeeting } from '@/lib/types/decodedMeeting.types';
 

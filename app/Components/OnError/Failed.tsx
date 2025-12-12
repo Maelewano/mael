@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import {useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-import * as Routes from "@/api/constants/appRoutes/routes";
-import {Button} from "@/components/ui/button";
-import {cn} from "@/lib/utils";
+import * as Routes from "@/app/constants/appRoutes/routes";
+import { Button } from "@/app/Components/UI/button";
+import { cn } from '@/lib/utils/utils';
 
 interface FailedRequestProps {
     title?: string;
