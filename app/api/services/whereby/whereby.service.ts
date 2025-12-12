@@ -57,7 +57,7 @@ export async function wherebyService(decodedMeeting: DecodedMeeting) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                roomNamePrefix: "aegis-meeting-",
+                roomNamePrefix: "mael-meeting-",
                 roomMode: "normal",
                 isLocked: true,
                 startDate: startDateISO,

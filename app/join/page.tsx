@@ -10,7 +10,7 @@ import Navbar from "@/app/Components/Navbar/Navbar"
 import { Button } from "@/app/Components/UI/button"
 import { Input } from "@/app/Components/UI/input"
 import { showToast } from "@/app/Components/UI/toast"
-import * as Routes from "@/app/Constants/appRoutes/routes"
+import * as Routes from "@/app/constants/appRoutes/routes"
 import { env } from "@/env.mjs"
 import { createMeetingRoom } from '@/lib/actions/meetings.actions';
 import { storage } from "@/lib/utils/localStorageUtilities"
@@ -189,7 +189,7 @@ export default function JoinMeeting() {
                             type="text"
                             value={meetingUrl || ''}
                             onChange={(e) => setMeetingUrl(e.target.value)}
-                            placeholder={`${env.NEXT_PUBLIC_WHEREBY_SUBDOMAIN_URL}${Routes.JOIN}/aegis-meeting-...`}
+                            placeholder={`${env.NEXT_PUBLIC_WHEREBY_SUBDOMAIN_URL}${Routes.JOIN}/mael-meeting-...`}
                             className="w-full"
                             disabled={isLoading}
                         />

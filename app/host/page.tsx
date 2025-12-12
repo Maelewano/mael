@@ -11,7 +11,7 @@ import Navbar from '@/app/Components/Navbar/Navbar'
 import { Button } from '@/app/Components/UI/button'
 import { Input } from '@/app/Components/UI/input'
 import { showToast } from '@/app/Components/UI/toast'
-import * as Routes from '@/app/Constants/appRoutes/routes';
+import * as Routes from '@/app/constants/appRoutes/routes';
 import { env } from '@/env.mjs'
 import { createMeetingRoom } from '@/lib/actions/meetings.actions';
 import { storage } from '@/lib/utils/localStorageUtilities'
@@ -192,7 +192,7 @@ export default function HostMeeting() {
                             type="text"
                             value={meetingUrl || ''}
                             onChange={(e) => setMeetingUrl(e.target.value)}
-                            placeholder={`${env.NEXT_PUBLIC_WHEREBY_SUBDOMAIN_URL}${Routes.HOST}/aegis-meeting-...`}
+                            placeholder={`${env.NEXT_PUBLIC_WHEREBY_SUBDOMAIN_URL}${Routes.HOST}/mael-meeting-...`}
                             className="w-full"
                             disabled={isLoading}
                         />
