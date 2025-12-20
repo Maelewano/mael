@@ -1,8 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mael | Maelewano - Unified Platform for Video Conferencing & Document Signing
 
-## Getting Started
+**Mael** is a harmonized platform that integrates secure document signing and video conferencing into one seamless solution. Built with Next.js 15, TypeScript, and MongoDB Atlas.
 
-First, run the development server:
+## 🚀 Features
+
+- **Video Conferencing**: Integrated with Whereby, Jitsi, and Agora
+- **Document Signing**: Secure electronic signatures via DropboxSign
+- **Email Notifications**: Automated email workflows with Resend
+- **FAQ Management**: Dynamic FAQ system with search functionality
+- **Responsive Design**: Modern UI with Tailwind CSS and shadcn/ui components
+- **Meeting Scheduling**: Complete meeting workflow from scheduling to execution
+
+## 📋 Prerequisites
+
+- Node.js 18+ 
+- npm/yarn/pnpm/bun
+- MongoDB Atlas account
+- Environment variables configured (see `.env.example`)
+
+## 🛠️ Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd mael
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   # or
+   bun install
+   ```
+
+3. **Environment Setup**
+   - Copy `.env.example` to `.env`
+   - Configure all required environment variables
+   - Ensure your MongoDB Atlas IP whitelist includes your current IP
+
+4. **Database Setup**
+   - Create a MongoDB Atlas cluster
+   - Add your IP address to the Atlas IP whitelist
+   - Update the `MONGODB_URI` in your `.env` file with your database name
+
+## 🚦 Getting Started
+
+**Start the development server:**
 
 ```bash
 npm run dev
@@ -14,23 +61,161 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) (or the available port shown in terminal) with your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🗄️ Database Management
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### FAQ Data Seeding
 
-## Learn More
+The FAQ system includes automatic seeding, but you can manually manage the data:
 
-To learn more about Next.js, take a look at the following resources:
+**Seed FAQ data (only if collection is empty):**
+```bash
+# Using curl
+curl http://localhost:3000/api/seed/faq
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Using PowerShell
+Invoke-WebRequest -Uri "http://localhost:3000/api/seed/faq" -Method GET
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Using browser
+# Navigate to: http://localhost:3000/api/seed/faq
+```
 
-## Deploy on Vercel
+**Reset and reseed FAQ data (clears existing data first):**
+```bash
+# Using curl
+curl "http://localhost:3000/api/seed/faq?action=reset"
+
+# Using PowerShell
+Invoke-WebRequest -Uri "http://localhost:3000/api/seed/faq?action=reset" -Method GET
+
+# Using browser
+# Navigate to: http://localhost:3000/api/seed/faq?action=reset
+```
+
+## 📁 Project Structure
+
+```
+mael/
+├── app/                    # Next.js App Router
+│   ├── Components/         # Reusable React components
+│   ├── api/               # API routes
+│   ├── faq/               # FAQ page
+│   ├── host/              # Host functionality
+│   ├── join/              # Join meeting page
+│   └── schedule/          # Meeting scheduling
+├── lib/                   # Utilities and configurations
+│   ├── actions/           # Server actions
+│   ├── data/              # Seed data
+│   ├── models/            # MongoDB schemas
+│   ├── types/             # TypeScript type definitions
+│   └── utils/             # Utility functions
+└── public/                # Static assets
+```
+
+## 🔧 Environment Variables
+
+Key environment variables required:
+
+```env
+# Database
+MONGODB_URI=mongodb+srv://user:password@cluster.mongodb.net/database_name
+
+# App Configuration
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NODE_ENV=development
+
+# Email Services
+RESEND_API_KEY=your_resend_api_key
+
+# Video Conferencing
+NEXT_PUBLIC_WHEREBY_SUBDOMAIN_URL=https://your-subdomain.whereby.com
+NEXT_PUBLIC_WHEREBY_API_KEY=your_whereby_api_key
+
+# Document Signing
+NEXT_PUBLIC_DROPBOX_SIGN_CLIENT_ID=your_dropbox_sign_client_id
+NEXT_DROPBOX_SIGN_API_KEY=your_dropbox_sign_api_key
+```
+
+## 🛠️ Technologies Used
+
+- **Framework**: Next.js 15 with Turbopack
+- **Language**: TypeScript
+- **Database**: MongoDB Atlas with Mongoose
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **Email**: Resend
+- **Video Conferencing**: Whereby, Jitsi, Agora
+- **Document Signing**: DropboxSign
+- **State Management**: React Hooks
+- **Form Handling**: React Hook Form
+- **Validation**: Zod
+
+## 📝 Available Scripts
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run type-check   # Run TypeScript compiler
+```
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Push your code to a Git repository
+2. Connect your repository to Vercel
+3. Configure environment variables in Vercel dashboard
+4. Deploy automatically on every push
+
+### Environment Setup for Production
+
+Ensure these are configured in your deployment platform:
+
+- All environment variables from `.env`
+- MongoDB Atlas IP whitelist includes deployment platform IPs
+- API keys for all integrated services
+- Proper domain configuration for callbacks
+
+## 📚 Learn More
+
+To learn more about the technologies used:
+
+- [Next.js Documentation](https://nextjs.org/docs) - Learn about Next.js features and API
+- [MongoDB Atlas](https://docs.atlas.mongodb.com/) - MongoDB cloud database
+- [Tailwind CSS](https://tailwindcss.com/docs) - Utility-first CSS framework
+- [shadcn/ui](https://ui.shadcn.com/) - Reusable component library
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is proprietary software. All rights reserved.
+
+## 🆘 Troubleshooting
+
+### Common Issues
+
+**MongoDB Connection Error:**
+- Check your IP whitelist in MongoDB Atlas
+- Verify `MONGODB_URI` includes the correct database name
+- Ensure network connectivity
+
+**Port Already in Use:**
+- Next.js will automatically use the next available port
+- Check terminal output for the correct port number
+
+**FAQ Data Not Showing:**
+- Run the FAQ seed command manually
+- Check database connection and permissions
+- Verify FAQ collection exists and has data

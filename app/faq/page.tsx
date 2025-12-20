@@ -4,6 +4,7 @@ import FAQs from "@/app/Components/FAQs/FAQs";
 import {FAQ} from "@/lib/models/faq.model";
 import {connectDB} from "@/lib/utils/mongodbUtilities";
 import {FAQCategory} from "@/lib/types/faq.types";
+import { seedFAQData } from "@/lib/utils/seedFAQ";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -34,7 +35,21 @@ async function getFAQData(): Promise<{ categories: FAQCategory[] }> {
     await connectDB();
 
     try {
-        const faqData = await FAQ.findOne({}).sort({updatedAt: -1}).lean() as MongoFAQData | null;
+        let faqData = await FAQ.findOne({}).sort({updatedAt: -1}).lean() as MongoFAQData | null;
+
+        // If no FAQ data exists, seed it
+        if (!faqData) {
+            console.log("No FAQ data found, seeding database...");
+            const seedResult = await seedFAQData();
+            
+            if (seedResult.success) {
+                // Fetch the newly seeded data
+                faqData = await FAQ.findOne({}).sort({updatedAt: -1}).lean() as MongoFAQData | null;
+            } else {
+                console.error("Failed to seed FAQ data:", seedResult.error);
+                return {categories: []};
+            }
+        }
 
         if (!faqData?.categories) {
             return {categories: []};
