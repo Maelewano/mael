@@ -148,7 +148,7 @@ export default function HomePage() {
                   {/* Action Button */}
                   <div className="flex justify-center">
                     <Button
-                      className="mt-6 border-0 bg-gradient-to-r from-indigo-600 to-indigo-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition-all duration-200 hover:from-indigo-700 hover:to-indigo-800 hover:shadow-xl disabled:from-gray-400 disabled:to-gray-500"
+                      className="mt-6 border-0 bg-gradient-to-r from-indigo-600 to-indigo-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition-all duration-200 hover:from-indigo-700 hover:to-indigo-800 hover:shadow-xl hover:-translate-y-0.5 hover:cursor-pointer disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed disabled:transform-none"
                       onClick={handlePlayDemo}
                       disabled={isPlayingDemo}
                     >
