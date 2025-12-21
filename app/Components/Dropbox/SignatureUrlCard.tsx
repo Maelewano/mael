@@ -1,8 +1,7 @@
 "use client";
 
-import {Loader2} from "lucide-react";
 import {useEffect, useRef, useState} from "react";
-import {FaFileSignature} from "react-icons/fa";
+import Loading from "@/app/loading";
 
 import {env} from "@/env.mjs";
 
@@ -148,21 +147,17 @@ export default function SignatureUrlCard() {
     };
 
     return (
-        <div className="size-full min-h-screen rounded-xl bg-white dark:border-gray-700 dark:bg-gray-900">
-            <div className="my-4 flex flex-row items-center justify-center gap-4">
-                <FaFileSignature className="text-gray-900 dark:text-gray-100" size={30} />
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Sign Document</h2>
-            </div>
-            <div className="mx-auto mb-4 rounded border p-2">
-                <p className="mb-4 text-center text-sm text-gray-600 dark:text-gray-400">
+        <div className="size-full min-h-screen bg-white">
+            <div className="mb-4">
+                <p className="mt-4 mb-4 text-center text-sm">
                     Enter a signature ID or Email Address to retrieve the document.
                 </p>
 
-                <form onSubmit={handleSubmit} className="flex  flex-row items-end justify-center gap-2 p-2">
+                <form onSubmit={handleSubmit} className="flex flex-row items-end justify-center gap-2">
                     <div className="flex w-64 flex-col">
                         <label
                             htmlFor="signatureId"
-                            className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
+                            className="mb-1 block text-sm font-medium "
                         >
                             Signature ID
                         </label>
@@ -172,14 +167,14 @@ export default function SignatureUrlCard() {
                             value={signatureId}
                             onChange={(e) => setSignatureId(e.target.value)}
                             placeholder="e.g. 50e3542f738adfa7ddd4..."
-                            className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
+                            className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
                     <p className="p-2 text-xs">-OR-</p>
                     <div className="flex w-64 flex-col">
                         <label
                             htmlFor="email"
-                            className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
+                            className="mb-1 block text-sm font-medium"
                         >
                             Email Address
                         </label>
@@ -189,7 +184,7 @@ export default function SignatureUrlCard() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="participant@email.com"
-                            className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
+                            className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
                     <button
@@ -198,10 +193,7 @@ export default function SignatureUrlCard() {
                         className="inline-flex h-10 items-center justify-center rounded-md bg-blue-600 p-2 text-sm font-medium text-white transition hover:bg-blue-700 disabled:opacity-50"
                     >
                         {loading ? (
-                            <>
-                                <Loader2 className="mr-2 size-4 animate-spin" />
-                                Loading...
-                            </>
+                            <Loading />
                         ) : (
                             "Get Sign URL"
                         )}
