@@ -109,14 +109,6 @@ export default function MeetingForm() {
   return (
     <div className="container mx-auto w-full">
       <div className="rounded-xl border border-gray-200 bg-white p-8 shadow-xl transition-all duration-300 hover:shadow-2xl">
-        <div className="mb-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900">
-            Schedule a Meeting
-          </h2>
-          <div className="mx-auto m-4 h-1 w-20 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500"></div>
-          <p className="mt-2 text-gray-600">Fill out the details below to create your meeting</p>
-        </div>
-
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-8 md:px-4 lg:px-8"
