@@ -8,6 +8,7 @@ import {
   Star,
   Lock,
   Play,
+  Loader,
 } from "lucide-react";
 
 import { useState } from "react";
@@ -152,8 +153,17 @@ export default function HomePage() {
                       onClick={handlePlayDemo}
                       disabled={isPlayingDemo}
                     >
-                      <Play className="mr-2 size-4" />
-                      {isPlayingDemo ? "Processing..." : "Sign Document"}
+                      {isPlayingDemo ? (
+                        <>
+                          <Loader className="mr-2 size-4 animate-spin" />
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          <Play className="mr-2 size-4" />
+                          Sign Document
+                        </>
+                      )}
                     </Button>
                   </div>
                 </Card>
