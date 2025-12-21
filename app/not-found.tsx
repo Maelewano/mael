@@ -4,7 +4,7 @@ import { FaExclamationTriangle } from "react-icons/fa";
 
 import { Button } from "@/app/Components/UI/button";
 import { generateMetadata } from "@/app/config/metadata";
-import * as Routes from "@/app/Constants/appRoutes/routes";
+import * as Routes from "@/app/constants/appRoutes/routes";
 
 // This special file is used by Next.js App Router for 404s.
 // It renders for unknown routes or when notFound() is thrown.
