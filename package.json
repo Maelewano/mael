@@ -13,6 +13,7 @@
     "analyze:dev": "cross-env ANALYZE=true dev"
   },
   "dependencies": {
+    "@dropbox/sign": "^1.10.0",
     "@headlessui/react": "^2.2.8",
     "@heroicons/react": "^2.2.0",
     "@next/bundle-analyzer": "^15.5.3",

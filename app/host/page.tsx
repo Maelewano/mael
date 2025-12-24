@@ -367,7 +367,7 @@ export default function HostMeeting() {
             <div className="rounded-lg border border-gray-200 bg-white/95 shadow-xl backdrop-blur-sm">
               <div className="flex items-center justify-between border-b border-gray-200 p-4">
                 <h2 className="text-xl font-bold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">
-                  Start Signature Process
+                  Start Signing Process
                 </h2>
                 <div className="my-4 flex flex-row items-center justify-center gap-4 bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">
                   <Send className="text-gray-700" size={30} />
