@@ -1,0 +1,17 @@
+name: Protect Master Branch
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  protect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if push is from automation
+        run: |
+          if [[ "${{ github.actor }}" != "github-actions[bot]" ]]; then
+            echo "❌ Direct pushes to master branch are not allowed!"
+            echo "Please use the proper workflow: develop → staging → master"
+            exit 1
+          fi
