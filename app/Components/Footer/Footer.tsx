@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa6";
 
 import { fontSans } from '@/app/config/font';
-import * as Routes from "@/app/Constants/appRoutes/routes";
+import * as Routes from "@/app/constants/appRoutes/routes";
 
 
 export default function Footer() {
