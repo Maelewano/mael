@@ -261,7 +261,7 @@ export default function HostMeeting() {
                   Video Meeting - Host
                 </h1>
                 <p className="text-sm text-muted-foreground mt-1">
-                  You're hosting the meeting
+                  You&apos;re hosting the meeting
                 </p>
               </div>
               <div className="flex items-center gap-3">
