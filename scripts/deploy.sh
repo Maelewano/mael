@@ -19,7 +19,7 @@ case $CURRENT_BRANCH in
         git merge develop --no-ff -m "Merge develop into staging"
         git push origin staging
         echo "✅ Successfully deployed to staging!"
-        echo "🌐 Staging URL: https://your-app-git-staging.vercel.app"
+        echo "🌐 Staging URL: https://maelewano-git-staging.vercel.app"
         ;;
     
     "staging")
@@ -31,7 +31,7 @@ case $CURRENT_BRANCH in
             git merge staging --no-ff -m "Release: $(date '+%Y-%m-%d %H:%M:%S')"
             git push origin master
             echo "🎉 Successfully deployed to production!"
-            echo "🌐 Production URL: https://your-app.vercel.app"
+            echo "🌐 Production URL: https://maelewano.vercel.app"
         else
             echo "❌ Deployment cancelled"
         fi
