@@ -54,8 +54,8 @@ Set up GitHub branch protection rules:
   - ✅ **Do not allow bypassing settings**
 
 ### 3. Configure Vercel
-- **Production**: Connect `master` branch → your-app.vercel.app
-- **Preview**: Connect `staging` branch → your-app-git-staging.vercel.app
+- **Production**: Connect `master` branch → maelewano.vercel.app
+- **Preview**: Connect `staging` branch → maelewano-git-staging.vercel.app
 - **Development**: Local development only
 
 ### 3. Deployment Commands
