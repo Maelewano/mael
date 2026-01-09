@@ -257,7 +257,7 @@ export default function JoinMeeting() {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">
-                  Video Meeting
+                  Video Meeting - Join
                 </h1>
                 <p className="text-sm text-muted-foreground mt-1">
                   You&apos;ve joined the meeting
