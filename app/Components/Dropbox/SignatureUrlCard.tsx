@@ -147,7 +147,7 @@ export default function SignatureUrlCard() {
     };
 
     return (
-        <div className="size-full min-h-screen bg-white">
+        <div className="size-full min-h-screen">
             <div className="mb-4">
                 <p className="mt-4 mb-4 text-center text-sm">
                     Enter a signature ID or Email Address to retrieve the document.
