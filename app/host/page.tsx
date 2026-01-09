@@ -251,8 +251,8 @@ export default function HostMeeting() {
   }
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="container mx-auto px-4 py-4">
+    <section className="relative h-screen max-h-screen overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="container mx-auto px-4 py-4 h-full flex flex-col">
         {meetingUrl && (
           <header className="mb-6 rounded-lg border border-gray-200 bg-white/90 p-6 shadow-lg backdrop-blur-sm">
             <div className="flex items-center justify-between">
@@ -363,9 +363,9 @@ export default function HostMeeting() {
         )}
 
         {showSignaturePanel && (
-          <div className="absolute left-1/2 transform -translate-x-1/2 top-24 z-10 w-4/5">
-            <div className="rounded-lg border border-gray-200 bg-white/95 shadow-xl backdrop-blur-sm">
-              <div className="flex items-center justify-between border-b border-gray-200 p-4">
+          <div className="absolute left-1/2 transform -translate-x-1/2 top-24 bottom-4 z-10 w-4/5">
+            <div className="rounded-lg border border-gray-200 bg-white/95 shadow-xl backdrop-blur-sm h-full flex flex-col max-h-[calc(100vh-8rem)]">
+              <div className="flex items-center justify-between border-b border-gray-200 p-4 flex-shrink-0">
                 <h2 className="text-xl font-bold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">
                   Start Signing Process
                 </h2>
@@ -383,7 +383,7 @@ export default function HostMeeting() {
                 </Button>
               </div>
 
-              <div className="max-h-[600px] overflow-y-auto">
+              <div className="overflow-y-auto flex-1 min-h-0">
                 <SignatureRequestForm />
               </div>
             </div>
@@ -391,9 +391,9 @@ export default function HostMeeting() {
         )}
 
         {showSigningPanel && (
-          <div className="absolute left-1/2 transform -translate-x-1/2 top-24 z-10 w-4/5">
-            <div className="rounded-lg border border-gray-200 bg-white/95 shadow-xl backdrop-blur-sm">
-              <div className="flex items-center justify-between border-b border-gray-200 p-4">
+          <div className="absolute left-1/2 transform -translate-x-1/2 top-24 bottom-4 z-10 w-4/5">
+            <div className="rounded-lg border border-gray-200 bg-white/95 shadow-xl backdrop-blur-sm h-full flex flex-col max-h-[calc(100vh-8rem)]">
+              <div className="flex items-center justify-between border-b border-gray-200 p-4 flex-shrink-0">
                 <h2 className="text-xl font-bold bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">
                   Document Signing
                 </h2>
@@ -411,19 +411,19 @@ export default function HostMeeting() {
                 </Button>
               </div>
 
-              <div className="max-h-[600px] overflow-y-auto">
+              <div className="overflow-y-auto flex-1 min-h-0">
                 <SignatureUrlCard />
               </div>
             </div>
           </div>
         )}
 
-        <div className="relative rounded-lg border border-gray-200 bg-white shadow-lg overflow-hidden">
+        <div className="relative rounded-lg border border-gray-200 bg-white shadow-lg overflow-hidden flex-1 min-h-0">
           {meetingUrl && (
             <iframe
               src={meetingUrl}
               allow="camera; microphone; fullscreen; speaker; display-capture; compute-pressure"
-              className="w-full h-[600px]"
+              className="w-full h-full"
               title="Video Meeting (Host)"
               onLoad={() => {
                 console.log("Host meeting room loaded");

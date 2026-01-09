@@ -128,15 +128,23 @@ const nextConfig = {
 
 const withBundleAnalyzer = bundleAnalyzer({ enabled: Boolean(env.ANALYZE) });
 
-// Simplified Sentry configuration
+// Sentry configuration
 const sentryOptions = {
-    org: "CheetahWS",
-    project: "Mael",
+    org: "cheetahws",  // Use Organization Slug, not Display Name
+    project: "mael",
     silent: !process.env.CI,
     widenClientFileUpload: true, // Increases build time
     hideSourceMaps: true,
-    disableLogger: true,
-    automaticVercelMonitors: true,
+    
+    // Use webpack.treeshake.removeDebugLogging instead of disableLogger
+    webpack: {
+        treeshake: {
+            removeDebugLogging: true,
+        },
+        // Use webpack.automaticVercelMonitors instead of automaticVercelMonitors
+        automaticVercelMonitors: true,
+    },
+    
     telemetry: false,
 
     // Disable Sentry webpack plugin in development for faster builds
