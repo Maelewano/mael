@@ -45,35 +45,17 @@ export default function MeetingForm() {
       console.log("Sending request to API:", JSON.stringify(data));
 
       // Call API to create meeting
-
       data.meetingId = crypto.randomUUID().split("-")[0];
-      const response = await createMeetingLink(data);
+      const result = await createMeetingLink(data);
 
-      console.log("API response status:", response.status);
+      console.log("API response:", result);
 
-      // Handle non-OK responses
-      if (!response.ok) {
-        // Try to get error details from response
-        // let errorMessage = 'Failed to create meeting';
-        // try {
-        //   const errorData = await response.json();
-        //   console.error("API error response:", errorData);
-        //   errorMessage = errorData.details || errorData.error || errorMessage;
-        // } catch (parseError) {
-        //   // If we can't parse JSON, try to get text
-        //   // const errorText = await response.text().catch(() => '');
-        //   // console.error("API error text:", errorText || errorMessage);
-        //   console.error("API error text:", parseError || errorMessage);
-        // }
+      // Check if the API call was successful
+      if (result.error) {
+        throw new Error(result.error || "Failed to create meeting");
       }
 
-      // Parse successful response
-      // const result = await response.json().catch((error: any) => {
-      //   console.error("Error parsing success response:", error);
-      //   throw new Error("Invalid response from server");
-      // });
-
-      console.log("Meeting created successfully:");
+      console.log("Meeting created successfully:", result);
 
       showToast.success({
         title: "Meeting Created",
@@ -83,6 +65,9 @@ export default function MeetingForm() {
 
       // Reset form after successful submission
       reset();
+      
+      // Scroll to top of the page to show the reset form
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
       console.error("Error creating meeting:", error);
 

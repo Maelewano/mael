@@ -48,12 +48,12 @@ type ToastProps = {
 export const showToast = {
     success: ({ title, message, icon }: ToastProps) => {
         return toast.success(
-            <div className="flex items-start gap-3 bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+            <div className="flex items-start gap-3 text-gray-800">
                 <div className="mt-0.5">
-                    {icon ?? <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400" aria-hidden="true" />}
+                    {icon ?? <CheckCircle2 className="h-5 w-5 text-green-600" aria-hidden="true" />}
                 </div>
                 <div className="flex flex-col gap-1">
-                    {title && <p className="font-semibold text-green-700 dark:text-green-400">{title}</p>}
+                    {title && <p className="font-semibold text-green-700">{title}</p>}
                     <p className="text-sm">{message}</p>
                 </div>
             </div>
@@ -61,12 +61,12 @@ export const showToast = {
     },
     error: ({ title, message, icon }: ToastProps) => {
         return toast.error(
-            <div className="flex items-start gap-3 bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+            <div className="flex items-start gap-3 text-gray-800">
                 <div className="mt-0.5">
-                    {icon ?? <XCircle className="h-5 w-5 text-red-600 dark:text-red-400" aria-hidden="true" />}
+                    {icon ?? <XCircle className="h-5 w-5 text-red-600" aria-hidden="true" />}
                 </div>
                 <div className="flex flex-col gap-1">
-                    {title && <p className="font-semibold text-red-700 dark:text-red-400">{title}</p>}
+                    {title && <p className="font-semibold text-red-700">{title}</p>}
                     <p className="text-sm">{message}</p>
                 </div>
             </div>
@@ -74,7 +74,7 @@ export const showToast = {
     },
     loading: ({ title, message, icon }: ToastProps) => {
         return toast.loading(
-            <div className="flex items-start gap-3 bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+            <div className="flex items-start gap-3 text-gray-800">
                 <div className="mt-0.5">
                     {icon ?? <Loader2 className="h-5 w-5 text-gray-500 animate-spin" aria-hidden="true" />}
                 </div>
