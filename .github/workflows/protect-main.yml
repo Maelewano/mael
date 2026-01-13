@@ -8,10 +8,37 @@ jobs:
   protect:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if push is from automation
+      - name: Check if user has admin permissions
+        id: check-permissions
+        uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              const { data: user } = await github.rest.repos.getCollaboratorPermissionLevel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                username: context.actor
+              });
+              
+              const allowedPermissions = ['admin', 'maintain'];
+              const hasPermission = allowedPermissions.includes(user.permission);
+              
+              if (context.actor === 'github-actions[bot]' || hasPermission) {
+                console.log(`✅ ${context.actor} has permission to push to master`);
+                return true;
+              } else {
+                console.log(`❌ ${context.actor} does not have sufficient permissions`);
+                return false;
+              }
+            } catch (error) {
+              console.log(`❌ Error checking permissions: ${error.message}`);
+              return false;
+            }
+      
+      - name: Block unauthorized pushes
+        if: steps.check-permissions.outputs.result == 'false'
         run: |
-          if [[ "${{ github.actor }}" != "github-actions[bot]" ]]; then
-            echo "❌ Direct pushes to master branch are not allowed!"
-            echo "Please use the proper workflow: develop → staging → master"
-            exit 1
-          fi
+          echo "❌ Direct pushes to master branch are not allowed!"
+          echo "Please use the proper workflow: develop → staging → master"
+          echo "Or ensure you have admin/maintain permissions on this repository"
+          exit 1
