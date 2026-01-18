@@ -20,10 +20,13 @@ export default function MeetingForm() {
   } = useForm<MeetingData>({
     defaultValues: {
       moderator: {
+        firstName: "",
+        lastName: "",
+        name: "",
         email: "",
         phoneNumber: "",
       },
-      participants: [{ email: "", phoneNumber: "" } as Participant],
+      participants: [{ firstName: "", lastName: "", name: "", email: "", phoneNumber: "" } as Participant],
       timeDetails: {
         meetingStartTime: "",
         meetingEndTime: "",
@@ -42,6 +45,43 @@ export default function MeetingForm() {
     setIsLoading(true);
 
     try {
+      // Normalize name fields: prefer `name` (full) input, fall back to firstName
+      if (data.moderator) {
+        const nameRaw = (data.moderator.name ?? data.moderator.firstName ?? "").trim();
+        if (nameRaw) {
+          if (!data.moderator.lastName && nameRaw.includes(" ")) {
+            const parts = nameRaw.split(/\s+/);
+            data.moderator.firstName = parts.shift() || "";
+            data.moderator.lastName = parts.join(" ") || "";
+          } else if (!data.moderator.firstName && !data.moderator.lastName) {
+            data.moderator.firstName = nameRaw;
+          }
+        }
+      }
+
+      if (data.participants && Array.isArray(data.participants)) {
+        data.participants = data.participants.map((p) => {
+          const nameRaw = (p.name ?? p.firstName ?? "").trim();
+          if (nameRaw) {
+            if (!p.lastName && nameRaw.includes(" ")) {
+              const parts = nameRaw.split(/\s+/);
+              return {
+                ...p,
+                firstName: parts.shift() || "",
+                lastName: parts.join(" ") || "",
+              } as Participant;
+            }
+            if (!p.firstName && !p.lastName) {
+              return {
+                ...p,
+                firstName: nameRaw,
+              } as Participant;
+            }
+          }
+          return p;
+        });
+      }
+
       console.log("Sending request to API:", JSON.stringify(data));
 
       // Call API to create meeting
@@ -88,7 +128,7 @@ export default function MeetingForm() {
   };
 
   const addParticipant = () => {
-    append({ email: "", phoneNumber: "" } as Participant);
+    append({ firstName: "", lastName: "", name: "", email: "", phoneNumber: "" } as Participant);
   };
 
   return (
@@ -104,7 +144,7 @@ export default function MeetingForm() {
               Moderator Information
             </h3>
 
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 md:grid-cols-3">
               <div>
                 <label className="mb-1 block text-sm font-medium text-gray-700">
                   Email Address
@@ -130,12 +170,23 @@ export default function MeetingForm() {
 
               <div>
                 <label className="mb-1 block text-sm font-medium text-gray-700">
-                  Phone Number
+                  Name
+                </label>
+                <input
+                  type="text"
+                  {...register("moderator.name")}
+                  className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  placeholder="Full name"
+                />
+              </div>
+
+              <div>
+                <label className="mb-1 block text-sm font-medium text-gray-700">
+                  Phone Number (optional)
                 </label>
                 <input
                   type="tel"
                   {...register("moderator.phoneNumber", {
-                    required: "Moderator phone number is required",
                     pattern: {
                       value: /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/,
                       message: "Phone format: 123-456-7890",
@@ -157,7 +208,7 @@ export default function MeetingForm() {
           <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 transition-all duration-200 hover:border-blue-300 hover:bg-blue-50/50">
             <div className="mb-4 flex items-center justify-between">
               <h3 className="text-lg font-semibold text-gray-900">
-                Participants
+                Participant Information
               </h3>
               <button
                 type="button"
@@ -189,7 +240,7 @@ export default function MeetingForm() {
                   )}
                 </div>
 
-                <div className="grid gap-4 md:grid-cols-2">
+                <div className="grid gap-4 md:grid-cols-3">
                   <div>
                     <label className="mb-1 block text-sm font-medium text-gray-700">
                       Email Address
@@ -215,12 +266,23 @@ export default function MeetingForm() {
 
                   <div>
                     <label className="mb-1 block text-sm font-medium text-gray-700">
-                      Phone Number
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      {...register(`participants.${index}.name` as const)}
+                      className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      placeholder="Full name"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-gray-700">
+                      Phone Number (optional)
                     </label>
                     <input
                       type="tel"
                       {...register(`participants.${index}.phoneNumber`, {
-                        required: "Participant phone number is required",
                         pattern: {
                           value: /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/,
                           message: "Phone format: 123-456-7890",

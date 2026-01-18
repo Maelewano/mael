@@ -21,10 +21,12 @@ const emailButtonStyle: React.CSSProperties = {
 
 export function Email(emailInformation: EmailInformation) {
   const formattedStartDate = formatMeetingDate(emailInformation.startDate);
+  const recipientName =
+    emailInformation.participantName ?? emailInformation.organizerName ?? null;
 
   return (
     <Html lang="en">
-      <Text>Hi there,</Text>
+      <Text>Hi{recipientName ? ` ${recipientName},` : ' there,'}</Text>
       <Text>
         You are invited to a meeting scheduled on <strong>{formattedStartDate}</strong>.
       </Text>

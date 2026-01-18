@@ -130,6 +130,8 @@ DESCRIPTION:${emailInformation.description}
 LOCATION:${emailInformation.url}
 STATUS:CONFIRMED
 ORGANIZER;CN=John:mailto:${emailInformation.organizerEmail}
+ORGANIZER;CN=${emailInformation.organizerName ?? "Organizer"}:mailto:${emailInformation.organizerEmail}
+${emailInformation.participantEmail && emailInformation.participantName ? `ATTENDEE;CN=${emailInformation.participantName};RSVP=TRUE:mailto:${emailInformation.participantEmail}` : ""}
 END:VEVENT
 END:VCALENDAR`;
 }
