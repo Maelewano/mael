@@ -25,6 +25,7 @@
    - [Common Issues](#common-issues)
 
 
+<a id="features"></a>
 ## 🚀 Features
 
 - **Video Conferencing**: Integrated with Whereby, Jitsi, and Agora
@@ -34,6 +35,7 @@
 - **Responsive Design**: Modern UI with Tailwind CSS and shadcn/ui components
 - **Meeting Scheduling**: Complete meeting workflow from scheduling to execution
 
+<a id="prerequisites"></a>
 ## 📋 Prerequisites
 
 - Node.js 18+ 
@@ -41,6 +43,7 @@
 - MongoDB Atlas account
 - Environment variables configured (see `.env.example`)
 
+<a id="installation"></a>
 ## 🛠️ Installation
 
 1. **Clone the repository**
@@ -70,6 +73,7 @@
    - Add your IP address to the Atlas IP whitelist
    - Update the `MONGODB_URI` in your `.env` file with your database name
 
+<a id="getting-started"></a>
 ## 🚦 Getting Started
 
 **Start the development server:**
@@ -86,8 +90,10 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) (or the available port shown in terminal) with your browser.
 
+<a id="database-management"></a>
 ## 🗄️ Database Management
 
+<a id="faq-data-seeding"></a>
 ### FAQ Data Seeding
 
 The FAQ system includes automatic seeding, but you can manually manage the data:
@@ -116,6 +122,7 @@ Invoke-WebRequest -Uri "http://localhost:3000/api/seed/faq?action=reset" -Method
 # Navigate to: http://localhost:3000/api/seed/faq?action=reset
 ```
 
+<a id="project-structure"></a>
 ## 📁 Project Structure
 
 ```
@@ -136,6 +143,7 @@ mael/
 └── public/                # Static assets
 ```
 
+<a id="environment-variables"></a>
 ## 🔧 Environment Variables
 
 Key environment variables required:
@@ -161,6 +169,7 @@ NEXT_PUBLIC_DROPBOX_SIGN_CLIENT_ID=<your_dropbox_sign_client_id>
 NEXT_DROPBOX_SIGN_API_KEY=<your_dropbox_sign_api_key>
 ```
 
+<a id="technologies-used"></a>
 ## 🛠️ Technologies Used
 
 - **Framework**: Next.js 15 with Turbopack
@@ -175,6 +184,7 @@ NEXT_DROPBOX_SIGN_API_KEY=<your_dropbox_sign_api_key>
 - **Form Handling**: React Hook Form
 - **Validation**: Zod
 
+<a id="available-scripts"></a>
 ## 📝 Available Scripts
 
 ```bash
@@ -185,8 +195,10 @@ npm run lint         # Run ESLint
 npm run type-check   # Run TypeScript compiler
 ```
 
+<a id="deployment"></a>
 ## 🚀 Deployment
 
+<a id="vercel-recommended"></a>
 ### Vercel (Recommended)
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
@@ -196,6 +208,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 3. Configure environment variables in Vercel dashboard
 4. Deploy automatically on every push
 
+<a id="environment-setup-for-production"></a>
 ### Environment Setup for Production
 
 Ensure these are configured in your deployment platform:
@@ -205,6 +218,7 @@ Ensure these are configured in your deployment platform:
 - API keys for all integrated services
 - Proper domain configuration for callbacks
 
+<a id="learn-more"></a>
 ## 📚 Learn More
 
 To learn more about the technologies used:
@@ -214,6 +228,7 @@ To learn more about the technologies used:
 - [Tailwind CSS](https://tailwindcss.com/docs) - Utility-first CSS framework
 - [shadcn/ui](https://ui.shadcn.com/) - Reusable component library
 
+<a id="contributing"></a>
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -222,6 +237,7 @@ To learn more about the technologies used:
 4. Test thoroughly
 5. Submit a pull request
 
+<a id="documentation"></a>
 ## 📚 Documentation
 
 - Detailed operational and developer guides live in the `docs/` directory:
@@ -230,12 +246,15 @@ To learn more about the technologies used:
 
 - Keep `README.md` as the high-level project overview. For testing, deployment, and other workflows, see the files above in `docs/`.
 
+<a id="license"></a>
 ## 📄 License
 
 This project is proprietary software. All rights reserved.
 
+<a id="troubleshooting"></a>
 ## 🆘 Troubleshooting
 
+<a id="common-issues"></a>
 ### Common Issues
 
 **MongoDB Connection Error:**
