@@ -281,6 +281,14 @@ export default function MeetingForm() {
                   type="datetime-local"
                   {...register("timeDetails.meetingStartTime", {
                     required: "Start date and time is required",
+                    validate: (value) => {
+                      const start = new Date(value);
+                      if (isNaN(start.getTime())) return "Invalid start date";
+                      const minOffset = 5 * 60 * 1000; // 5 minutes in ms
+                      if (start.getTime() - Date.now() < minOffset)
+                        return "Start time must be at least 5 minutes in the future";
+                      return true;
+                    },
                   })}
                   className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
@@ -299,10 +307,21 @@ export default function MeetingForm() {
                   type="datetime-local"
                   {...register("timeDetails.meetingEndTime", {
                     required: "End date and time is required",
-                    validate: (value, formValues) =>
-                      new Date(value) >
-                        new Date(formValues.timeDetails.meetingStartTime) ||
-                      "End time must be after start time",
+                    validate: (value, formValues) => {
+                      const end = new Date(value);
+                      const start = new Date(
+                        formValues.timeDetails.meetingStartTime
+                      );
+                      if (isNaN(end.getTime())) return "Invalid end date";
+                      if (isNaN(start.getTime()))
+                        return "Provide a valid start time first";
+                      if (end.getTime() <= start.getTime())
+                        return "End time must be after start time";
+                      const minOffset = 5 * 60 * 1000; // 5 minutes in ms
+                      if (end.getTime() - Date.now() < minOffset)
+                        return "End time must be at least 5 minutes in the future";
+                      return true;
+                    },
                   })}
                   className="w-full rounded-md border border-gray-300 bg-white p-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
