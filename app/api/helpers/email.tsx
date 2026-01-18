@@ -2,6 +2,7 @@ import { Html } from "@react-email/html";
 import { Text } from "@react-email/text";
 
 import { EmailInformation } from "@/lib/types/emailInformation.types";
+import { formatMeetingDate } from "@/lib/utils/emailUtilities";
 
 const emailButtonStyle: React.CSSProperties = {
   display: "inline-block",
@@ -19,11 +20,13 @@ const emailButtonStyle: React.CSSProperties = {
 };
 
 export function Email(emailInformation: EmailInformation) {
+  const formattedStartDate = formatMeetingDate(emailInformation.startDate);
+
   return (
     <Html lang="en">
       <Text>Hi there,</Text>
       <Text>
-        You are invited to a Meeting scheduled on <strong>{emailInformation.startDate}</strong>.
+        You are invited to a meeting scheduled on <strong>{formattedStartDate}</strong>.
       </Text>
       <Text><strong>Description: </strong>{emailInformation.description}</Text>
       <Text>

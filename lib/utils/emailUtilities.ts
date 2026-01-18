@@ -2,7 +2,7 @@ import { EmailInformation } from "@/lib/types/emailInformation.types";
 import { Moderator } from "@/lib/types/moderator";
 import { TimeDetails } from "@/lib/types/timeDetails.types";
 
-function formatMeetingDate(dateString: string) {
+export function formatMeetingDate(dateString: string) {
   return new Date(dateString).toLocaleString("en-US", {
     weekday: "long",
     year: "numeric",
