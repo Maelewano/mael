@@ -25,6 +25,7 @@ export async function generateModeratorEmailInformationAndSendEmail(
     const meetingId = meetingData.meetingId;
     const moderatorToken = generateModeratorToken(moderatorData, timeDetails, tokenExpiryDate, meetingId);
     const moderatorMeetingUrl: string = generateMeetingUrl(moderatorToken, URLType.MODERATOR)
+    const moderatorEmailBody = generateModeratorEmail(moderatorData, timeDetails, moderatorMeetingUrl);
     const moderatorEmailInfo: EmailInformation = {
         description: meetingData.summary,
         endDate: timeDetails.meetingEndTime,
@@ -33,7 +34,7 @@ export async function generateModeratorEmailInformationAndSendEmail(
         uid: '123',
         url: moderatorMeetingUrl,
         title: 'Your Meeting Link',
-        body: generateModeratorEmail(timeDetails, moderatorMeetingUrl),
+        body: moderatorEmailBody,
         to: moderatorData.email
     } as EmailInformation
     await resendService(moderatorEmailInfo);

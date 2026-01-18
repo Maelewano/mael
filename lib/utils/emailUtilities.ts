@@ -33,39 +33,41 @@ export function generateParticipantEmail(
   timeDetails: TimeDetails,
   meetingUrl: string
 ): string {
-  const name = `${moderator.firstName ?? "John"} ${moderator.lastName ?? "Stamos"}`;
+  const name = `${moderator.firstName ?? "Maelewano"} ${moderator.lastName ?? "Platform"}`;
   const startDate = formatMeetingDate(timeDetails.meetingStartTime);
   return `
         <Html lang="en">
             <h1>Meeting Invitation</h1>
             <div>
                 <p>Hi,</p>
-                <p>You have been invited to a meeting by <b>${name}</b>.</p>
+                <p>You have been invited to a meeting on the <b>${name}</b>.</p>
             </div>
             <p><b>Details:</b></p>
             <div style="margin-left:1em;">You have been invited to a meeting on <b>${startDate}</b>.</div>
             <button style="margin: 16px 0;">
                             <a href="${meetingUrl}" style="${emailButtonStyle}">Join Meeting</a>
             </button>
-            <p><strong>Note:</strong> You cannot join before the set date and time.</p>
+            <p><strong>Note:</strong> You cannot join the meeting before the set date and time.</p>
         </Html>
     `;
 }
 
 export function generateModeratorEmail(
+  moderator: Moderator,
   timeDetails: TimeDetails,
   meetingUrl: string
 ): string {
+  const name = `${moderator.firstName ?? "Maelewano"} ${moderator.lastName ?? "Platform"}`;
   const startDate = formatMeetingDate(timeDetails.meetingStartTime);
   return `
         <Html lang="en">
             <h1>Meeting Scheduled</h1>
             <div>
                 <p>Hi,</p>
-                <p>You have scheduled a meeting.</p>
+                <p>You have scheduled a meeting using the <b>${name}</b>.</p>
             </div>
             <p><b>Details:</b></p>
-            <div style="margin-left:1em;">You have created a meeting on <b>${startDate}</b>.</div>
+            <div style="margin-left:1em;">You have created a meeting for <b>${startDate}</b>.</div>
             <button style="margin: 16px 0;">
                             <a href="${meetingUrl}" style="${emailButtonStyle}">Host Meeting</a>
             </button>
