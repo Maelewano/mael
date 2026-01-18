@@ -21,7 +21,7 @@ export async function resendService(emailInformation: EmailInformation) {
         await resend.emails.send({
             from: 'Mael <info@mael-group.com>',
             to,
-            subject: 'Project Meeting Invite',
+            subject: 'Scheduled Meeting Invite',
             html,
             attachments: [
                 {

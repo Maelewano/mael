@@ -25,15 +25,17 @@ export async function generateModeratorEmailInformationAndSendEmail(
     const meetingId = meetingData.meetingId;
     const moderatorToken = generateModeratorToken(moderatorData, timeDetails, tokenExpiryDate, meetingId);
     const moderatorMeetingUrl: string = generateMeetingUrl(moderatorToken, URLType.MODERATOR)
+    const moderatorEmailBody = generateModeratorEmail(moderatorData, timeDetails, moderatorMeetingUrl);
     const moderatorEmailInfo: EmailInformation = {
         description: meetingData.summary,
         endDate: timeDetails.meetingEndTime,
         organizerEmail: moderatorData.email,
+        organizerName: `${moderatorData.firstName ?? ''} ${moderatorData.lastName ?? ''}`.trim() || moderatorData.name,
         startDate: timeDetails.meetingStartTime,
         uid: '123',
         url: moderatorMeetingUrl,
         title: 'Your Meeting Link',
-        body: generateModeratorEmail(timeDetails, moderatorMeetingUrl),
+        body: moderatorEmailBody,
         to: moderatorData.email
     } as EmailInformation
     await resendService(moderatorEmailInfo);
@@ -59,11 +61,19 @@ export async function generateParticipantEmailInformationAndSendEmail(
         const participantMeetingUrl: string = generateMeetingUrl(token, URLType.PARTICIPANT);
 
         const participantEmailBody = generateParticipantEmail(meetingData.moderator, timeDetails, participantMeetingUrl);
+        // find participant object by email to extract name if available
+        const participantObj = participantData.find((p) => p.email === email);
+        const participantName = participantObj
+            ? `${participantObj.firstName ?? ''} ${participantObj.lastName ?? ''}`.trim() || participantObj.name
+            : undefined;
+
         const participantEmailInfo: EmailInformation = {
             description: meetingData.summary,
             endDate: timeDetails.meetingEndTime,
             organizerEmail: meetingData.moderator.email,
+            organizerName: `${meetingData.moderator.firstName ?? ''} ${meetingData.moderator.lastName ?? ''}`.trim() || meetingData.moderator.name,
             participantEmail: email,
+            participantName: participantName,
             startDate: timeDetails.meetingStartTime,
             uid: '123',
             url: participantMeetingUrl,

@@ -15,7 +15,7 @@ export const env = createEnv({
         NODE_ENV: z
             .enum(["development", "test", "production"])
             .default("development"),
-        NGROK_AUTHTOKEN: z.string(),
+        NGROK_AUTHTOKEN: z.string().optional(),
         NEXT_DROPBOX_SIGN_API_KEY: z.string(),
         NEXT_PUBLIC_EMAIL_HOST: z.string(),
         NEXT_PUBLIC_EMAIL_PORT: z.string(),

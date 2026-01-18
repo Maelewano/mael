@@ -24,6 +24,7 @@ export default function JoinMeeting() {
   const [showSignaturePanel, setShowSignaturePanel] = useState<boolean>(false);
   const [joinedMeeting, setJoinedMeeting] = useState<boolean>(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const processedTokenRef = useRef<string | null>(null);
 
   // Ref to prevent duplicate error toasts
   const lastErrorRef = useRef<string | null>(null);
@@ -102,39 +103,64 @@ export default function JoinMeeting() {
   );
 
   useEffect(() => {
-    // Extract token from URL
-    const token = searchParams.get("token");
+    // Extract token from URL. If `useSearchParams()` is empty on first
+    // render (hydration) try reading from window.location.search as a
+    // fallback so external links work immediately.
+    const token =
+      searchParams.get("token") ||
+      (typeof window !== "undefined"
+        ? new URLSearchParams(window.location.search).get("token")
+        : null);
+
     if (!token) {
-      handleError("Missing meeting token in URL");
+      // Do not show an error immediately — searchParams may be empty during
+      // hydration. Let the mount-time fallback attempt to read `window.location`.
       setIsLoading(false);
       return;
     }
+
+    // Prevent duplicate processing of the same token
+    if (processedTokenRef.current === token) return;
+    processedTokenRef.current = token;
+
     setIsLoading(true);
-    // Call API to check/join meeting room
-    // createMeetingRoom(token)
-    //     .then(async (res) => {
-    //         if (!res.ok) {
-    //             const errorData = await res.json();
-    //             handleError(errorData?.error || 'Failed to join meeting room');
-    //             setIsLoading(false);
-    //             return;
-    //         }
-    //         const data = await res.json();
-    //         // Use roomUrl for participant
-    //         const url = data.roomUrl;
-    //         joinMeeting(url);
-    //     })
-    //     .catch((error) => {
-    //         handleError('Error connecting to meeting room');
-    //         setIsLoading(false);
-    //     });
     const fetchData = async () => {
-      const response = await createMeetingRoom(token);
-      const url = response.data.roomUrl;
-      joinMeeting(url);
+      try {
+        const response = await createMeetingRoom(token);
+        const url = response.data.roomUrl;
+        joinMeeting(url);
+      } catch (err) {
+        handleError("Error connecting to meeting room");
+        setIsLoading(false);
+      }
     };
     fetchData();
   }, [searchParams, joinMeeting]);
+
+  // Ensure external navigations that land on this page (where searchParams
+  // may not be populated immediately) are handled: check window.location.search
+  // once on mount and attempt to join if a token exists.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const token = new URLSearchParams(window.location.search).get("token");
+    if (!token) return;
+    if (processedTokenRef.current === token) return;
+    processedTokenRef.current = token;
+
+    setIsLoading(true);
+    const fetchData = async () => {
+      try {
+        const response = await createMeetingRoom(token);
+        const url = response.data.roomUrl;
+        joinMeeting(url);
+      } catch (err) {
+        handleError("Error connecting to meeting room");
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Listen for iframe messages (meeting ended)
   useEffect(() => {
