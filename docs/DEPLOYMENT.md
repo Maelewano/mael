@@ -14,7 +14,7 @@ Single repository with 3-branch workflow for clean development and deployment.
 - **Usage**: Deploy features from develop for testing
 - **Stability**: Should be stable, feature-complete for testing
 
-### 🚀 `master` (Production)
+### 🚀 `main` (Production)
 - **Purpose**: Live production environment
 - **Usage**: Only stable, tested code from staging
 - **Stability**: Always production-ready
@@ -22,7 +22,7 @@ Single repository with 3-branch workflow for clean development and deployment.
 ## Workflow
 
 ```
-develop → staging → master
+develop → staging → main
    ↓        ↓        ↓
  features  testing production
 ```
@@ -43,10 +43,10 @@ git push -u origin develop
 git checkout develop
 ```
 
-### 2. Protect Master Branch
+### 2. Protect `main` Branch
 Set up GitHub branch protection rules:
 - Go to **Settings** → **Branches** → **Add rule**
-- Branch pattern: `master`
+- Branch pattern: `main`
 - Enable:
   - ✅ **Require pull request before merging**
   - ✅ **Require status checks to pass**
@@ -54,8 +54,8 @@ Set up GitHub branch protection rules:
   - ✅ **Do not allow bypassing settings**
 
 ### 3. Configure Vercel
-- **Production**: Connect `master` branch → maelewano.vercel.app
-- **Preview**: Connect `staging` branch → maelewano-git-staging.vercel.app
+- **Production**: Connect `main` branch → <your-app>.vercel.app
+- **Preview**: Connect `staging` branch → <your-app>-staging.vercel.app
 - **Development**: Local development only
 
 ### 3. Deployment Commands

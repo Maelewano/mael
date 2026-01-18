@@ -60,7 +60,12 @@ export async function POST(request: NextRequest) {
                     });
                     await newRoom.save();
                     console.log("[createMeetingRoom] Meeting room created and saved:", newRoom);
-                    return successResponse(wherebyData, 200, 'Meeting room created');
+                    // If wherebyService returned a wrapped response (success/status/data),
+                    // unwrap the inner `data` so clients receive the room info directly.
+                    const payload = wherebyData && typeof wherebyData === 'object' && 'data' in wherebyData
+                        ? (wherebyData as any).data
+                        : wherebyData;
+                    return successResponse(payload, 200, 'Meeting room created');
                 } catch (error) {
                     console.error("[createMeetingRoom] Error creating/saving meeting room:", error);
                     return errorResponse('Failed to create meeting room');

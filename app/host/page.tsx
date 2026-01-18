@@ -27,6 +27,7 @@ export default function HostMeeting() {
   const [showSigningPanel, setShowSigningPanel] = useState(false);
   const [joinedMeeting, setJoinedMeeting] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const processedTokenRef = useRef<string | null>(null);
 
   // Ref to prevent duplicate error toasts
   const lastErrorRef = useRef<string | null>(null);
@@ -108,41 +109,65 @@ export default function HostMeeting() {
 
   // useEffect for joining meeting from URL or localStorage
   useEffect(() => {
-    // Extract token from URL
-    const token = searchParams.get("token");
+    // Extract token from URL. If `useSearchParams()` is empty on first
+    // render (hydration) try reading from window.location.search as a
+    // fallback so external links work immediately.
+    const token =
+      searchParams.get("token") ||
+      (typeof window !== "undefined"
+        ? new URLSearchParams(window.location.search).get("token")
+        : null);
+
     if (!token) {
-      handleError("Missing meeting token in URL");
+      // Do not show an error immediately — searchParams may be empty during
+      // hydration. The mount-time fallback will try window.location.search.
       setIsLoading(false);
       return;
     }
+
+    // Prevent duplicate processing of the same token
+    if (processedTokenRef.current === token) return;
+    processedTokenRef.current = token;
+
     setIsLoading(true);
-    // Call API to create/check meeting room
-    // createMeetingRoom(token)
-    //     .then(async (res: Response) => {
-    //         console.log('getting meeting room url', res)
-    //         if (!res.ok) {
-    //             const errorData = await res.json();
-    //             handleError(errorData?.error || 'Failed to create meeting room');
-    //             setIsLoading(false);
-    //             return;
-    //         }
-    //         const data = await res.json();
-    //         // Use hostRoomUrl if available, else roomUrl
-    //         const url = data.hostRoomUrl;
-    //         joinMeeting(url);
-    //     })
-    //     .catch((error: unknown) => {
-    //         console.error(error)
-    //         handleError('Error connecting to meeting room');
-    //         setIsLoading(false);
-    //     });
     const fetchData = async () => {
-      const response = await createMeetingRoom(token);
-      const url = response.data.hostRoomUrl;
-      joinMeeting(url);
+      try {
+        const response = await createMeetingRoom(token);
+        const url = response.data.hostRoomUrl;
+        joinMeeting(url);
+      } catch (err) {
+        console.error(err);
+        handleError("Error connecting to meeting room");
+        setIsLoading(false);
+      }
     };
     fetchData();
   }, [searchParams, joinMeeting]);
+
+  // Mount-time fallback to catch tokens from external navigation where
+  // `useSearchParams()` might not be populated yet.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const token = new URLSearchParams(window.location.search).get("token");
+    if (!token) return;
+    if (processedTokenRef.current === token) return;
+    processedTokenRef.current = token;
+
+    setIsLoading(true);
+    const fetchData = async () => {
+      try {
+        const response = await createMeetingRoom(token);
+        const url = response.data.hostRoomUrl;
+        joinMeeting(url);
+      } catch (err) {
+        console.error(err);
+        handleError("Error connecting to meeting room");
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Listen for iframe messages (meeting ended)
   useEffect(() => {
@@ -355,9 +380,11 @@ export default function HostMeeting() {
                 meeting. When sharing your screen, please select the browser tab
                 with this website only to protect your privacy.
               </p>
-              <p className="text-xs text-red-500 text-center font-medium">
-                This message will automatically close in 5 seconds
-              </p>
+              <div className="rounded-md bg-blue-50 p-3">
+                <p className="text-xs text-blue-600 font-medium">
+                  📋 This message will automatically close in 5 seconds
+                </p>
+              </div>
             </div>
           </div>
         )}
