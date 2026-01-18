@@ -2,6 +2,29 @@
 
 **Mael** is a harmonized platform that integrates secure document signing and video conferencing into one seamless solution. Built with Next.js 15, TypeScript, and MongoDB Atlas.
 
+## Table of Contents
+
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+- [Database Management](#database-management)
+   - [FAQ Data Seeding](#faq-data-seeding)
+- [Project Structure](#project-structure)
+- [Environment Variables](#environment-variables)
+- [Technologies Used](#technologies-used)
+- [Available Scripts](#available-scripts)
+- [Deployment](#deployment)
+   - [Vercel (Recommended)](#vercel-recommended)
+   - [Environment Setup for Production](#environment-setup-for-production)
+- [Learn More](#learn-more)
+- [Contributing](#contributing)
+- [Documentation](#documentation)
+- [License](#license)
+- [Troubleshooting](#troubleshooting)
+   - [Common Issues](#common-issues)
+
+
 ## 🚀 Features
 
 - **Video Conferencing**: Integrated with Whereby, Jitsi, and Agora
@@ -119,22 +142,23 @@ Key environment variables required:
 
 ```env
 # Database
-MONGODB_URI=mongodb+srv://user:password@cluster.mongodb.net/database_name
+# Do not commit real credentials. Copy `.env.example` to `.env` and set values there.
+MONGODB_URI=<mongodb+srv://user:password@cluster.mongodb.net/database_name>
 
 # App Configuration
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 NODE_ENV=development
 
 # Email Services
-RESEND_API_KEY=your_resend_api_key
+RESEND_API_KEY=<your_resend_api_key>
 
 # Video Conferencing
-NEXT_PUBLIC_WHEREBY_SUBDOMAIN_URL=https://your-subdomain.whereby.com
-NEXT_PUBLIC_WHEREBY_API_KEY=your_whereby_api_key
+NEXT_PUBLIC_WHEREBY_SUBDOMAIN_URL=<your_whereby_subdomain_url>
+NEXT_PUBLIC_WHEREBY_API_KEY=<your_whereby_api_key>
 
 # Document Signing
-NEXT_PUBLIC_DROPBOX_SIGN_CLIENT_ID=your_dropbox_sign_client_id
-NEXT_DROPBOX_SIGN_API_KEY=your_dropbox_sign_api_key
+NEXT_PUBLIC_DROPBOX_SIGN_CLIENT_ID=<your_dropbox_sign_client_id>
+NEXT_DROPBOX_SIGN_API_KEY=<your_dropbox_sign_api_key>
 ```
 
 ## 🛠️ Technologies Used
@@ -197,6 +221,14 @@ To learn more about the technologies used:
 3. Make your changes
 4. Test thoroughly
 5. Submit a pull request
+
+## 📚 Documentation
+
+- Detailed operational and developer guides live in the `docs/` directory:
+   - [Testing Guide](docs/TESTING.md)
+   - [Deployment Guide](docs/DEPLOYMENT.md)
+
+- Keep `README.md` as the high-level project overview. For testing, deployment, and other workflows, see the files above in `docs/`.
 
 ## 📄 License
 
