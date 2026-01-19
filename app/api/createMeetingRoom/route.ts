@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { env } from '@/env.mjs';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { getWherebyMeetingRoom } from '@/app/api/helpers/getWherebyMeetingRoom';
@@ -25,7 +26,7 @@ export async function POST(request: NextRequest) {
 
         // Connect to MongoDB if not already connected
         if (mongoose.connection.readyState === 0) {
-            await mongoose.connect(process.env.MONGODB_URI!);
+            await mongoose.connect(env.MONGODB_URI!);
         }
 
         // Check if room exists for this meetingId
