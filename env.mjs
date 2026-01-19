@@ -36,9 +36,9 @@ export const env = createEnv({
         NEXT_PUBLIC_EMAIL_PASSWORD: z.string().optional(),
     },
     client: {
-        NEXT_PUBLIC_APP_URL: z.url(),
+        NEXT_PUBLIC_APP_URL: z.string(),
         NEXT_PUBLIC_WHEREBY_API_KEY: z.string(),
-        NEXT_PUBLIC_WHEREBY_SUBDOMAIN_URL: z.url(),
+        NEXT_PUBLIC_WHEREBY_SUBDOMAIN_URL: z.string(),
         NEXT_PUBLIC_JITSI_APP_ID: z.string(),
         NEXT_PUBLIC_JITSI_API_KEY: z.string(),
         NEXT_PUBLIC_DROPBOX_SIGN_CLIENT_ID: z.string(),
