@@ -5,8 +5,9 @@ import Email from '@/app/api/helpers/email';
 import { errorResponse, successResponse } from '@/app/api/helpers/responseHelper';
 import { EmailInformation } from '@/lib/types/emailInformation.types';
 import { generateICSIndiana } from '@/lib/utils/emailUtilities';
+import { env } from '@/env.mjs';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(env.RESEND_API_KEY);
 
 export async function resendService(emailInformation: EmailInformation) {
     const html = await render(Email(emailInformation), {pretty: true});

@@ -1,7 +1,8 @@
 import { MongoClient } from "mongodb";
 import mongoose, { Mongoose } from "mongoose";
+import { env } from '@/env.mjs';
 
-const uri = process.env.MONGODB_URI as string;
+const uri = env.MONGODB_URI as string;
 if (!uri) throw new Error("Please define the MONGODB_URI environment variable");
 
 // Declare global type augmentation (make TS happy)
@@ -23,7 +24,7 @@ let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
 let cached = globalThis._mongoose;
 
-if (process.env.NODE_ENV === "development") {
+if (env.NODE_ENV === "development") {
   // Use a global variable so we don't create a new client on every reload
   if (!global._mongoClientPromise) {
     client = new MongoClient(uri);
