@@ -9,7 +9,7 @@ const nextConfig = {
     reactStrictMode: true,
 
     // Enable source maps only in production when needed
-    productionBrowserSourceMaps: process.env.NODE_ENV === 'production' && process.env.ENABLE_SOURCE_MAPS === 'true',
+    productionBrowserSourceMaps: env.NODE_ENV === 'production' && env.ENABLE_SOURCE_MAPS === 'true',
 
     // Add experimental features for faster builds
     experimental: {
@@ -132,7 +132,7 @@ const withBundleAnalyzer = bundleAnalyzer({ enabled: Boolean(env.ANALYZE) });
 const sentryOptions = {
     org: "cheetahws",  // Use Organization Slug, not Display Name
     project: "mael",
-    silent: !process.env.CI,
+    silent: !env.CI,
     widenClientFileUpload: true, // Increases build time
     hideSourceMaps: true,
     
@@ -148,11 +148,11 @@ const sentryOptions = {
     telemetry: false,
 
     // Disable Sentry webpack plugin in development for faster builds
-    disableServerWebpackPlugin: process.env.NODE_ENV !== 'production',
-    disableClientWebpackPlugin: process.env.NODE_ENV !== 'production',
+    disableServerWebpackPlugin: env.NODE_ENV !== 'production',
+    disableClientWebpackPlugin: env.NODE_ENV !== 'production',
 
     // Only enable tunnel route in production
-    ...(process.env.NODE_ENV === 'production' && { tunnelRoute: "/monitoring" }),
+    ...(env.NODE_ENV === 'production' && { tunnelRoute: "/monitoring" }),
 };
 
 export default withSentryConfig(withPlugins([withBundleAnalyzer], nextConfig), sentryOptions);

@@ -2,7 +2,7 @@
 import { env } from '@/env.mjs';
 import { MeetingData } from '@/lib/types/meetingData.types';
 
-const apiKey = process.env.APP_SECRET_KEY;
+const apiKey = env.APP_SECRET_KEY;
 
 export async function createMeetingLink(meetingData: MeetingData) {
     if (!apiKey) throw new Error("APP_SECRET_KEY is missing");
