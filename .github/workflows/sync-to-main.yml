@@ -8,6 +8,19 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      APP_SECRET_KEY: ${{ secrets.APP_SECRET_KEY }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      NEXT_DROPBOX_SIGN_API_KEY: ${{ secrets.NEXT_DROPBOX_SIGN_API_KEY }}
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
+      NEXT_PUBLIC_WHEREBY_API_KEY: ${{ secrets.NEXT_PUBLIC_WHEREBY_API_KEY }}
+      NEXT_PUBLIC_WHEREBY_SUBDOMAIN_URL: ${{ secrets.NEXT_PUBLIC_WHEREBY_SUBDOMAIN_URL }}
+      NEXT_PUBLIC_JITSI_APP_ID: ${{ secrets.NEXT_PUBLIC_JITSI_APP_ID }}
+      NEXT_PUBLIC_JITSI_API_KEY: ${{ secrets.NEXT_PUBLIC_JITSI_API_KEY }}
+      NEXT_PUBLIC_DROPBOX_SIGN_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_DROPBOX_SIGN_CLIENT_ID }}
+      NEXT_PUBLIC_DROPBOX_SIGN_DOMAIN: ${{ secrets.NEXT_PUBLIC_DROPBOX_SIGN_DOMAIN }}
+      NEXT_PUBLIC_DROPBOX_SIGN_CALLBACK_URL: ${{ secrets.NEXT_PUBLIC_DROPBOX_SIGN_CALLBACK_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
