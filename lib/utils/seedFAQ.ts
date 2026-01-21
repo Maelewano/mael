@@ -1,6 +1,7 @@
 import { connectDB } from "./mongodbUtilities";
 import { FAQ } from "../models/faq.model";
 import { faqSeedData } from "../data/faq.seed";
+import { logger } from '@/lib/utils/logger';
 
 /**
  * Seeds the FAQ collection with initial data
