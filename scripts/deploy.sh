@@ -11,6 +11,11 @@ echo "🌟 Git Flow Deployment Script"
 CURRENT_BRANCH=$(git branch --show-current)
 echo "📋 Current branch: $CURRENT_BRANCH"
 
+# Configurable deployment URLs (can be overridden with env vars)
+DEVELOP_URL=${DEVELOP_URL:-"https://mael-git-develop-mollusque.vercel.app/"}
+STAGING_URL=${STAGING_URL:-"https://mael-git-staging-mollusque.vercel.app/"}
+PRODUCTION_URL=${PRODUCTION_URL:-"https://maelewano.vercel.app"}
+
 case $CURRENT_BRANCH in
     "develop")
         echo "🔄 Merging develop → staging..."
@@ -19,7 +24,8 @@ case $CURRENT_BRANCH in
         git merge develop --no-ff -m "Merge develop into staging"
         git push origin staging
         echo "✅ Successfully deployed to staging!"
-        echo "🌐 Staging URL: https://maelewano-git-staging.vercel.app"
+        echo "🌐 Develop URL: ${DEVELOP_URL}"
+        echo "🌐 Staging URL: ${STAGING_URL}"
         ;;
     
     "staging")
@@ -31,7 +37,8 @@ case $CURRENT_BRANCH in
             git merge staging --no-ff -m "Release: $(date '+%Y-%m-%d %H:%M:%S')"
             git push origin master
             echo "🎉 Successfully deployed to production!"
-            echo "🌐 Production URL: https://maelewano.vercel.app"
+            echo "🌐 Staging URL: ${STAGING_URL}"
+            echo "🌐 Production URL: ${PRODUCTION_URL}"
         else
             echo "❌ Deployment cancelled"
         fi
