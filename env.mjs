@@ -20,9 +20,15 @@ export const env = createEnv({
         NODE_ENV: z
             .enum(["development", "test", "production"])
             .default("development"),
+        DEBUG_LOGS: z
+            .enum(["true", "false"])
+            .default("false")
+            .optional()
+            .transform((v) => v === "true"),
         APP_SECRET_KEY: z.string(),
         RESEND_API_KEY: z.string(),
         NEXT_DROPBOX_SIGN_API_KEY: z.string(),
+        INVITE_SECRET_KEY: z.string(),
         MONGODB_URI: z.string(),
         NGROK_AUTHTOKEN: z.string().optional(),
         SMTP_HOST: z.string().optional(),
@@ -50,9 +56,11 @@ export const env = createEnv({
         ENABLE_SOURCE_MAPS: process.env.ENABLE_SOURCE_MAPS,
         CI: process.env.CI,
         NODE_ENV: process.env.NODE_ENV,
+        DEBUG_LOGS: process.env.DEBUG_LOGS,
         APP_SECRET_KEY: process.env.APP_SECRET_KEY,
         RESEND_API_KEY: process.env.RESEND_API_KEY,
         NEXT_DROPBOX_SIGN_API_KEY: process.env.NEXT_DROPBOX_SIGN_API_KEY,
+        INVITE_SECRET_KEY: process.env.INVITE_SECRET_KEY,
         MONGODB_URI: process.env.MONGODB_URI,
         NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
         NEXT_PUBLIC_WHEREBY_API_KEY: process.env.NEXT_PUBLIC_WHEREBY_API_KEY,
