@@ -1,5 +1,7 @@
 import { render } from '@react-email/render';
 import { Resend } from 'resend';
+import { inspect } from 'util';
+import { logger } from '@/lib/utils/logger';
 
 import Email from '@/app/api/helpers/email';
 import { errorResponse, successResponse } from '@/app/api/helpers/responseHelper';
@@ -36,16 +38,19 @@ export async function resendService(emailInformation: EmailInformation) {
         return successResponse('Email Sent Successfully');
     }
     catch (error: unknown) {
-        // Narrow to a specific shape if possible
-        if (error instanceof Error) {
-            console.error("Resend Error:", error.message);
-            return errorResponse(error.message, 500);
-        } else if (typeof error === "object" && error !== null && "message" in error) {
-            console.error("Resend Error object:", (error as any).message);
-            return errorResponse((error as any).message, 500);
-        } else {
-            console.error("Unknown Resend error:", error);
-            return errorResponse("Internal Server Error", 500);
+        // Log full error object and stack for debugging in Vercel logs
+        try {
+                logger.error("Resend Error (inspect):", inspect(error, { showHidden: true, depth: 5 }));
+        } catch (inspectErr) {
+                logger.error("Resend Error (failed to inspect):", error);
         }
+
+        if (error instanceof Error) {
+                logger.error("Resend Error stack:", error.stack);
+            return errorResponse(error.message, 500);
+        }
+
+        // Fallback for non-Error shapes
+        return errorResponse("Internal Server Error", 500);
     }
 }
