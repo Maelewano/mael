@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { errorResponse, successResponse } from '@/app/api/helpers/responseHelper';
 import { env } from '@/env.mjs';
 import { DecodedMeeting } from '@/lib/types/decodedMeeting.types';
+import { logger } from '@/lib/utils/logger';
 
 export async function wherebyService(decodedMeeting: DecodedMeeting) {
     try {
@@ -75,7 +76,7 @@ export async function wherebyService(decodedMeeting: DecodedMeeting) {
         const data = await response.json();
         return successResponse(data, 200, "Successfully created whereby meeting room")
     } catch (error) {
-        console.error("Error creating Whereby room:", error);
-        return errorResponse("Failed to create meeting room");
+        logger.error('Error creating Whereby room', error);
+        return errorResponse('Failed to create meeting room');
     }
 }

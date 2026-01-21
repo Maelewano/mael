@@ -1,6 +1,7 @@
 import { MongoClient } from "mongodb";
 import mongoose, { Mongoose } from "mongoose";
 import { env } from '@/env.mjs';
+import { logger } from '@/lib/utils/logger';
 
 const uri = env.MONGODB_URI as string;
 if (!uri) throw new Error("Please define the MONGODB_URI environment variable");
@@ -46,7 +47,7 @@ async function connectDB() {
   }
 
   if (cached.conn) {
-    console.log("Using cached mongoose connection");
+    logger.debug('Using cached mongoose connection');
     return cached.conn;
   }
 
@@ -59,16 +60,10 @@ async function connectDB() {
       family: 4,
     };
 
-    console.log(
-      "Creating new mongoose connection to:",
-      uri.replace(/\/\/.*@/, "//***:***@")
-    ); // Hide credentials in logs
+    logger.info('Creating new mongoose connection to:', uri.replace(/\/\/.*@/, '//***:***@'));
     cached.promise = mongoose.connect(uri, opts).then((mongooseInstance) => {
       if (mongooseInstance.connection.db) {
-        console.log(
-          "Mongoose connected successfully to database:",
-          mongooseInstance.connection.db.databaseName
-        );
+        logger.info('Mongoose connected successfully to database:', mongooseInstance.connection.db.databaseName);
       }
       return mongooseInstance;
     });
@@ -78,7 +73,7 @@ async function connectDB() {
     const [mongooseInstance] = await Promise.all([cached.promise]);
     cached.conn = mongooseInstance;
   } catch (e) {
-    console.error("Mongoose connection failed:", e);
+    logger.error('Mongoose connection failed', e);
     cached.promise = null;
     throw e;
   }

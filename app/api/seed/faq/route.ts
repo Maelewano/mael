@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { seedFAQData, resetAndSeedFAQData } from "@/lib/utils/seedFAQ";
+import { logger } from '@/lib/utils/logger';
 
 export async function GET(request: NextRequest) {
   try {
@@ -26,9 +27,9 @@ export async function GET(request: NextRequest) {
       );
     }
   } catch (error) {
-    console.error("Seed API error:", error);
+    logger.error('Seed API error', error);
     return NextResponse.json(
-      { error: "Failed to seed FAQ data" },
+      { error: 'Failed to seed FAQ data' },
       { status: 500 }
     );
   }

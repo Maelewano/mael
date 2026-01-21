@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { env } from '@/env.mjs';
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/utils/logger';
 
 import { getWherebyMeetingRoom } from '@/app/api/helpers/getWherebyMeetingRoom';
 import { errorResponse, successResponse } from '@/app/api/helpers/responseHelper';
@@ -11,16 +12,16 @@ import MeetingRoom from '@/lib/types/meetingRoom.types';
 export async function POST(request: NextRequest) {
     try {
         const token = await (await request.json());
-        console.log("[createMeetingRoom] Received token:", token);
+        logger.debug('[createMeetingRoom] Received token:', token);
         if (!token) {
-            console.error("[createMeetingRoom] No token found in query params", { url: request.url });
+            logger.error('[createMeetingRoom] No token found in query params', { url: request.url });
             return NextResponse.json({ error: "Token is required" }, { status: 400 });
         }
 
 
         const decodedMeeting = decodeToken(token);
         if (!decodedMeeting) {
-            console.error("[createMeetingRoom] Decoded meeting is null or invalid", { token });
+            logger.error('[createMeetingRoom] Decoded meeting is null or invalid', { token });
             return errorResponse("Error while decoding token");
         }
 
@@ -34,20 +35,20 @@ export async function POST(request: NextRequest) {
         let room;
         try {
             room = await MeetingRoom.findOne({ meetingId });
-            console.log("[createMeetingRoom] Room found:", room);
+            logger.debug('[createMeetingRoom] Room found:', room);
         } catch (err) {
-            console.error("[createMeetingRoom] Error querying MeetingRoom:", err);
+            logger.error('[createMeetingRoom] Error querying MeetingRoom:', err);
             return errorResponse("Database error");
         }
 
         if (decodedMeeting.urlType === URLType.MODERATOR) {
-            console.log("[createMeetingRoom] Token is for MODERATOR (host)");
+            logger.debug('[createMeetingRoom] Token is for MODERATOR (host)');
             // Host: create room if not exists
             if (!room) {
                 decodedMeeting.meetingPassword = crypto.randomUUID().split("-")[0];
                 try {
                     const wherebyData = await getWherebyMeetingRoom(decodedMeeting);
-                    console.log("[createMeetingRoom] Whereby API data:", wherebyData);
+                    logger.debug('[createMeetingRoom] Whereby API data:', wherebyData);
                     // Save room info to DB
                     const newRoom = new MeetingRoom({
                         meetingId,
@@ -60,7 +61,7 @@ export async function POST(request: NextRequest) {
                         tokenExpiryDate: decodedMeeting.tokenExpiryDate,
                     });
                     await newRoom.save();
-                    console.log("[createMeetingRoom] Meeting room created and saved:", newRoom);
+                    logger.info('[createMeetingRoom] Meeting room created and saved:', newRoom);
                     // If wherebyService returned a wrapped response (success/status/data),
                     // unwrap the inner `data` so clients receive the room info directly.
                     const payload = wherebyData && typeof wherebyData === 'object' && 'data' in wherebyData
@@ -68,32 +69,32 @@ export async function POST(request: NextRequest) {
                         : wherebyData;
                     return successResponse(payload, 200, 'Meeting room created');
                 } catch (error) {
-                    console.error("[createMeetingRoom] Error creating/saving meeting room:", error);
+                    logger.error('[createMeetingRoom] Error creating/saving meeting room:', error);
                     return errorResponse('Failed to create meeting room');
                 }
             } else {
                 // Room already exists, return info
-                console.log("[createMeetingRoom] Room already exists for host, returning existing room.");
+                logger.info('[createMeetingRoom] Room already exists for host, returning existing room.');
                 return successResponse(room, 200, 'Meeting room already exists');
             }
         } else if (decodedMeeting.urlType === URLType.PARTICIPANT) {
-            console.log("[createMeetingRoom] Token is for PARTICIPANT (join)");
+            logger.debug('[createMeetingRoom] Token is for PARTICIPANT (join)');
             // Participant: can only join if room exists
             if (!room) {
                 // Room not created yet
-                console.log("[createMeetingRoom] No room found for participant, meeting not started yet.");
+                logger.info('[createMeetingRoom] No room found for participant, meeting not started yet.');
                 return errorResponse('The meeting has not started yet. Please return at the scheduled time.');
             } else {
                 // Room exists, return info
-                console.log("[createMeetingRoom] Room found for participant, returning room info.");
+                logger.info('[createMeetingRoom] Room found for participant, returning room info.');
                 return successResponse(room, 200, 'Meeting room found');
             }
         } else {
-            console.error("[createMeetingRoom] Invalid urlType in decoded token:", decodedMeeting.urlType);
+            logger.error('[createMeetingRoom] Invalid urlType in decoded token:', decodedMeeting.urlType);
             return errorResponse('Invalid token type');
         }
     } catch (err) {
-        console.error("[createMeetingRoom] Unexpected error:", err);
+        logger.error('[createMeetingRoom] Unexpected error:', err);
         return errorResponse('Unexpected error in meeting room API');
     }
 }

@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { logger } from '@/lib/utils/logger';
 
 import { DecodedMeeting } from '@/lib/types/decodedMeeting.types';
 import { Moderator } from '@/lib/types/moderator';
@@ -62,7 +63,7 @@ export function decodeToken(token: string) {
     try {
         return jwt.verify(token, INVITE_SECRET_KEY!) as DecodedMeeting;
     } catch (err) {
-        console.error(err);
+        logger.error('Failed to decode token', err);
         return null;
     }
 }

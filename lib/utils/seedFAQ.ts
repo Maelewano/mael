@@ -14,20 +14,20 @@ export async function seedFAQData() {
     const existingFAQ = await FAQ.findOne();
     
     if (existingFAQ) {
-      console.log("FAQ data already exists, skipping seed");
-      return { success: true, message: "FAQ data already exists" };
+      logger.info('FAQ data already exists, skipping seed');
+      return { success: true, message: 'FAQ data already exists' };
     }
 
     // Create new FAQ document with seed data
     const faqDocument = new FAQ(faqSeedData);
     await faqDocument.save();
 
-    console.log("FAQ data seeded successfully");
-    return { success: true, message: "FAQ data seeded successfully" };
+    logger.info('FAQ data seeded successfully');
+    return { success: true, message: 'FAQ data seeded successfully' };
     
   } catch (error) {
-    console.error("Error seeding FAQ data:", error);
-    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+    logger.error('Error seeding FAQ data', error);
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 }
 
@@ -41,17 +41,17 @@ export async function resetAndSeedFAQData() {
 
     // Delete all existing FAQ documents
     await FAQ.deleteMany({});
-    console.log("Existing FAQ data cleared");
+    logger.info('Existing FAQ data cleared');
 
     // Create new FAQ document with seed data
     const faqDocument = new FAQ(faqSeedData);
     await faqDocument.save();
 
-    console.log("FAQ data reset and seeded successfully");
-    return { success: true, message: "FAQ data reset and seeded successfully" };
+    logger.info('FAQ data reset and seeded successfully');
+    return { success: true, message: 'FAQ data reset and seeded successfully' };
     
   } catch (error) {
-    console.error("Error resetting and seeding FAQ data:", error);
-    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+    logger.error('Error resetting and seeding FAQ data', error);
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 }
