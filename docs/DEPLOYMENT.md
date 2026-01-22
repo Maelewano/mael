@@ -126,6 +126,40 @@ Make sure these are set in Vercel:
 - `NEXTAUTH_SECRET`
 - Any other API keys from your `.env`
 
+## Dry Run (Safe Simulation)
+
+The deploy script supports a dry-run mode that prints the git commands it would run without executing them. Use this to verify steps before running the real deploy.
+
+Usage (Unix / Git Bash / WSL):
+```bash
+DRY_RUN=true ./scripts/deploy.sh
+```
+
+The script respects the `DEVELOP_URL`, `STAGING_URL`, and `PRODUCTION_URL` environment variables if you override them.
+
+### Unset DRY_RUN
+
+If you previously used dry-run and want to be explicit: ensure __DRY_RUN__ is not set or is false
+
+**Usage (Unix / Git Bash / WSL):**
+```bash
+unset DRY_RUN
+./scripts/deploy.sh
+```
+
+**OR explicitly**
+```bash
+DRY_RUN=false ./scripts/deploy.sh
+```
+
+#### Override URLs (optional)
+
+```bash
+DEVELOP_URL="https://your-dev.vercel.app" STAGING_URL="https://your-staging.vercel.app" ./scripts/deploy.sh
+```
+
+**Tip:** RUN DRY_RUN=true ./scripts/deploy.sh first to simulate, then the real command when you're ready.
+
 ## Benefits
 
 ✅ Clean separation of development and deployed

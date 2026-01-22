@@ -16,13 +16,25 @@ DEVELOP_URL=${DEVELOP_URL:-"https://mael-git-develop-mollusque.vercel.app/"}
 STAGING_URL=${STAGING_URL:-"https://mael-git-staging-mollusque.vercel.app/"}
 PRODUCTION_URL=${PRODUCTION_URL:-"https://maelewano.vercel.app"}
 
+# Dry-run flag: when true, commands are echoed instead of executed
+DRY_RUN=${DRY_RUN:-"false"}
+
+# Helper to run commands (respects DRY_RUN)
+run_cmd() {
+    if [[ "$DRY_RUN" == "true" ]]; then
+        echo "[DRY_RUN] $*"
+    else
+        eval "$*"
+    fi
+}
+
 case $CURRENT_BRANCH in
     "develop")
         echo "🔄 Merging develop → staging..."
-        git checkout staging
-        git pull origin staging
-        git merge develop --no-ff -m "Merge develop into staging"
-        git push origin staging
+        run_cmd "git checkout staging"
+        run_cmd "git pull origin staging"
+        run_cmd "git merge develop --no-ff -m \"Merge develop into staging\""
+        run_cmd "git push origin staging"
         echo "✅ Successfully deployed to staging!"
         echo "🌐 Develop URL: ${DEVELOP_URL}"
         echo "🌐 Staging URL: ${STAGING_URL}"
@@ -30,12 +42,17 @@ case $CURRENT_BRANCH in
     
     "staging")
         echo "🚀 Deploying staging → master (production)..."
-        read -p "Are you sure you want to deploy to production? (y/N): " confirm
+        if [[ "$DRY_RUN" == "true" ]]; then
+            echo "[DRY_RUN] Auto-confirming production deploy"
+            confirm="y"
+        else
+            read -p "Are you sure you want to deploy to production? (y/N): " confirm
+        fi
         if [[ $confirm == [yY] ]]; then
-            git checkout master
-            git pull origin master
-            git merge staging --no-ff -m "Release: $(date '+%Y-%m-%d %H:%M:%S')"
-            git push origin master
+            run_cmd "git checkout master"
+            run_cmd "git pull origin master"
+            run_cmd "git merge staging --no-ff -m \"Release: $(date '+%Y-%m-%d %H:%M:%S')\""
+            run_cmd "git push origin master"
             echo "🎉 Successfully deployed to production!"
             echo "🌐 Staging URL: ${STAGING_URL}"
             echo "🌐 Production URL: ${PRODUCTION_URL}"
