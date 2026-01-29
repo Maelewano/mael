@@ -1,7 +1,6 @@
 "use client";
 
 import { FileSignature, Send, XCircle, Video, Undo2 } from "lucide-react";
-import { PiFrameCornersBold } from "react-icons/pi";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
