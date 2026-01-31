@@ -127,6 +127,33 @@ export async function POST(req: NextRequest) {
         signaturesAll: responseData.signaturesAll,
         warnings: responseData.warnings,
       });
+
+      // Trigger dedicated email sending route only when we have a valid signatureRequestId
+      if (responseData.signatureRequestId && Array.isArray(responseData.signaturesAll) && responseData.signaturesAll.length > 0) {
+        try {
+          const sendEmailsUrl = new URL(
+            "/api/dropbox/signature_request/send_emails",
+            env.NEXT_PUBLIC_APP_URL
+          ).toString();
+
+          const resp = await fetch(sendEmailsUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ signatureRequestId: responseData.signatureRequestId }),
+          });
+
+          try {
+            const json = await resp.json();
+            console.log("send_emails response:", json);
+          } catch (e) {
+            console.log("send_emails response non-json or empty", e);
+          }
+        } catch (e) {
+          console.error("Failed to call send_emails route:", e);
+        }
+      } else {
+        console.log("Skipping send_emails: missing signatureRequestId or signatures");
+      }
     } catch (err) {
       console.error("Failed to store signature request in DB:", err);
     }

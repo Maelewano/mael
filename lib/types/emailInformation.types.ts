@@ -11,4 +11,6 @@ export interface EmailInformation {
     organizerName?: string
     participantName?: string;
     participantEmail?: string;
+    signatureId?: string;
+    order?: number;
 }
