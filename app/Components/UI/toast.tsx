@@ -85,8 +85,8 @@ export const showToast = {
             </div>
         );
     },
-    custom: (component: ReactElement, options = {}) => {
-        return toast.custom(component, options);
+    custom: (component: ReactElement | ((t: any) => ReactElement), options = {}) => {
+        return toast.custom(component as any, options);
     },
 
     /** Dismiss is used to close a specific toast or all toasts

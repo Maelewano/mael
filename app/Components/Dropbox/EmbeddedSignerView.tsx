@@ -15,8 +15,9 @@ export default function EmbedRequestForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+    reset,
+    formState: { errors, isValid },
+  } = useForm<FormData>({ mode: "onChange" });
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -37,7 +38,6 @@ export default function EmbedRequestForm() {
     try {
       // Create an actual FormData object
       const formData = new FormData();
-      // ...existing code for building formData...
       formData.append("client_id", env.NEXT_PUBLIC_DROPBOX_SIGN_CLIENT_ID);
       formData.append("title", data.title);
       formData.append("subject", data.subject);
@@ -47,7 +47,7 @@ export default function EmbedRequestForm() {
           if (signer.emailAddress) {
             formData.append(
               `signer[${index}][email_address]`,
-              signer.emailAddress
+              signer.emailAddress,
             );
           }
           if (signer.name) {
@@ -74,7 +74,7 @@ export default function EmbedRequestForm() {
       });
       formData.append(
         "fieldOptions",
-        JSON.stringify({ dateFormat: "DDMMYYYY" })
+        JSON.stringify({ dateFormat: "DDMMYYYY" }),
       );
       formData.append("testMode", "true");
 
@@ -83,30 +83,51 @@ export default function EmbedRequestForm() {
         {
           method: "POST",
           body: formData,
-        }
+        },
       );
       const responseData = await response.json();
       if (!responseData.success) {
-        showToast.error({
-          title: "Signature Request Failed",
-          message: responseData.error || "Failed to create signature request",
-        });
+        showToast.custom((t: any) => (
+          <FailedRequest
+            compact
+            title="Failed To Send Signature Request"
+            message={responseData.error || "We couldn't process your signature request."}
+            errorDetails={responseData.error || "Call to API Failed"}
+            retryAction={handleRetry}
+            retryText="Retry"
+            onClose={() => showToast.dismiss(t.id)}
+          />
+        ), { duration: 0 });
         throw new Error(
-          responseData.error || "Failed to create signature request"
+          responseData.error || "Failed to create signature request",
         );
       }
       setResult(responseData.data);
-      showToast.success({
-        title: "Document Ready",
-        message: "The signature request was created successfully.",
-      });
+      // Clear the form and uploaded files on success
+      reset();
+      setFiles([]);
+      showToast.custom((t: any) => (
+        <SuccessfulRequest
+          compact
+          title="Document is Ready"
+          message="The signature request was created successfully."
+          onClose={() => showToast.dismiss(t.id)}
+        />
+      ), { duration: 4000 });
     } catch (error) {
       console.error("Error creating signature request:", error);
       setError((error as Error).message);
-      showToast.error({
-        title: "Error",
-        message: (error as Error).message || "Error creating signature request",
-      });
+      showToast.custom((t: any) => (
+        <FailedRequest
+          compact
+          title="Error"
+          message={(error as Error).message || "Error creating signature request"}
+          errorDetails={(error as Error).message || "Error creating signature request"}
+          retryAction={handleRetry}
+          retryText="Retry"
+          onClose={() => showToast.dismiss(t.id)}
+        />
+      ), { duration: 0 });
     } finally {
       setIsLoading(false);
     }
@@ -341,8 +362,8 @@ export default function EmbedRequestForm() {
           <div className="flex justify-center pt-4">
             <Button
               type="submit"
-              disabled={isLoading}
-              className="min-w-[200px] rounded-lg bg-gradient-to-r from-green-500 to-green-600 px-8 py-3 text-lg font-semibold text-white shadow-lg transition-all duration-200 hover:from-green-600 hover:to-green-700 hover:shadow-xl hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:transform-none disabled:shadow-md"
+              disabled={isLoading || !isValid || files.length === 0}
+              className="cursor-pointer min-w-[200px] rounded-lg bg-gradient-to-r from-green-500 to-green-600 px-8 py-3 text-lg font-semibold text-white shadow-lg transition-all duration-200 hover:from-green-600 hover:to-green-700 hover:shadow-xl hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:transform-none disabled:shadow-md"
             >
               {isLoading ? (
                 <>
@@ -356,35 +377,12 @@ export default function EmbedRequestForm() {
           </div>
         </form>
       </div>
-
-      {/* Error State */}
-      {error && (
-        <div className="mt-6 rounded-lg border border-red-200 bg-red-50 p-6">
-          <FailedRequest
-            title="Failed To Send Signature Request"
-            message="We couldn't process your signature request."
-            errorDetails="Call to API Failed"
-            redirectText="Create New Request"
-            retryAction={handleRetry}
-            retryText="Retry"
-          />
-        </div>
-      )}
-
-      {/* Success State */}
-      {result && (
+      {/* Dev-only detailed result */}
+      {result && process.env.NODE_ENV === "development" && (
         <div className="mt-6 rounded-lg border border-green-200 bg-green-50 p-6">
-          <SuccessfulRequest
-            title="Document is Ready"
-            message="You can close this dialog."
-            redirectPath=""
-            redirectText="Close"
-          />
-          {process.env.NODE_ENV === "development" && (
-            <pre className="mt-4 text-xs text-gray-600">
-              {JSON.stringify(result, null, 2)}
-            </pre>
-          )}
+          <pre className="text-xs text-gray-600">
+            {JSON.stringify(result, null, 2)}
+          </pre>
         </div>
       )}
     </div>
