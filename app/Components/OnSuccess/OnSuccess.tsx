@@ -23,6 +23,7 @@ export const SuccessfulRequest = ({
                                       className,
                                       showHomeButton = true,
                                       onClose,
+                                      compact = false,
                                   }: SuccessfulRequestProps) => {
     const router = useRouter();
     const [countdown, setCountdown] = useState(autoRedirectTime);
@@ -65,40 +66,77 @@ export const SuccessfulRequest = ({
             <h2 className="mb-4 text-2xl font-bold text-green-600 dark:text-green-400">{title}</h2>
             <p className="mb-6 text-gray-700 dark:text-gray-300">{message}</p>
 
-            <div className="flex w-full flex-col gap-4 sm:flex-row">
-                {redirectPath && (
-                    <Button
-                        className="w-full bg-green-600 text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
-                        onClick={() => router.push(redirectPath)}
+            {compact ? (
+                <div className="mt-4 flex w-full items-center justify-center gap-2">
+                    {redirectPath && (
+                        <button
+                            type="button"
+                            className="inline-flex items-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700"
+                            onClick={() => {
+                                router.push(redirectPath);
+                                onClose && onClose();
+                            }}
+                        >
+                            {redirectText}
+                            {countdown > 0 && ` (${countdown}s)`}
+                        </button>
+                    )}
+                    {showHomeButton && (
+                        <button
+                            type="button"
+                            className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            onClick={() => {
+                                router.push(Routes.HOME);
+                                onClose && onClose();
+                            }}
+                        >
+                            Back to Home
+                        </button>
+                    )}
+                    <button
+                        type="button"
+                        className="inline-flex items-center rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                        onClick={() => onClose && onClose()}
                     >
-                        {redirectText}
-                        {countdown > 0 && ` (${countdown}s)`}
-                    </Button>
-                )}
+                        Close
+                    </button>
+                </div>
+            ) : (
+                <div className="flex w-full flex-col gap-4 sm:flex-row">
+                    {redirectPath && (
+                        <Button
+                            className="w-full bg-green-600 text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+                            onClick={() => router.push(redirectPath)}
+                        >
+                            {redirectText}
+                            {countdown > 0 && ` (${countdown}s)`}
+                        </Button>
+                    )}
 
-                {showHomeButton && (
+                    {showHomeButton && (
+                        <Button
+                            variant="outline"
+                            className="w-full border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+                            onClick={() => router.push(Routes.HOME)}
+                        >
+                            Back to Home
+                        </Button>
+                    )}
+
+                    {/* Close/Continue button for dialog/modal usage */}
                     <Button
-                        variant="outline"
-                        className="w-full border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
-                        onClick={() => router.push(Routes.HOME)}
+                        variant="ghost"
+                        className="w-full border border-gray-200 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+                        onClick={() => {
+                            if (onClose) {
+                                onClose();
+                            }
+                        }}
                     >
-                        Back to Home
+                        Close
                     </Button>
-                )}
-
-                {/* Close/Continue button for dialog/modal usage */}
-                <Button
-                    variant="ghost"
-                    className="w-full border border-gray-200 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
-                    onClick={() => {
-                        if (onClose) {
-                            onClose();
-                        }
-                    }}
-                >
-                    Close
-                </Button>
-            </div>
+                </div>
+            )}
         </div>
     );
 };
