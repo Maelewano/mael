@@ -7,19 +7,7 @@ import { useEffect, useState } from "react";
 import * as Routes from "@/app/constants/appRoutes/routes";
 import { Button } from "@/app/Components/UI/button";
 import { cn } from '@/lib/utils/utils';
-
-interface FailedRequestProps {
-    title?: string;
-    message?: string;
-    errorDetails?: string;
-    redirectPath?: string;
-    redirectText?: string;
-    retryAction?: () => void;
-    retryText?: string;
-    autoRedirectTime?: number; // Time in seconds before auto-redirect
-    className?: string;
-    showHomeButton?: boolean;
-}
+import { FailedRequestProps } from '@/lib/types/onError.types';
 
 export const FailedRequest = ({
                                   title = "Request Failed",
@@ -32,6 +20,8 @@ export const FailedRequest = ({
                                   autoRedirectTime = 0, // 0 means no auto-redirect
                                   className,
                                   showHomeButton = true,
+                                  onClose,
+                                  compact = false,
                               }: FailedRequestProps) => {
     const router = useRouter();
     const [countdown, setCountdown] = useState(autoRedirectTime);
@@ -78,6 +68,7 @@ export const FailedRequest = ({
             {errorDetails && (
                 <div className="mb-6 w-full">
                     <button
+                        type="button"
                         onClick={() => setShowErrorDetails(!showErrorDetails)}
                         className="mb-2 text-sm text-gray-600 underline dark:text-gray-400"
                     >
@@ -92,37 +83,61 @@ export const FailedRequest = ({
                 </div>
             )}
 
-            <div className="flex w-full flex-col gap-4 sm:flex-row">
-                {retryAction && (
-                    <Button
-                        className="w-full bg-red-600 text-white hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600"
-                        onClick={() => retryAction()}
+            {compact ? (
+                <div className="mt-4 flex w-full items-center justify-center gap-2">
+                    {retryAction && (
+                        <button
+                            type="button"
+                            onClick={() => {
+                                retryAction && retryAction();
+                                onClose && onClose();
+                            }}
+                            className="inline-flex items-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-red-700"
+                        >
+                            {retryText}
+                        </button>
+                    )}
+                    <button
+                        type="button"
+                        onClick={() => onClose && onClose()}
+                        className="inline-flex items-center rounded-md border border-red-200 bg-white px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-50"
                     >
-                        {retryText}
-                    </Button>
-                )}
+                        Close
+                    </button>
+                </div>
+            ) : (
+                <div className="flex w-full flex-col gap-4 sm:flex-row">
+                    {retryAction && (
+                        <Button
+                            className="w-full bg-red-600 text-white hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600"
+                            onClick={() => retryAction && retryAction()}
+                        >
+                            {retryText}
+                        </Button>
+                    )}
 
-                {redirectPath && (
-                    <Button
-                        variant="outline"
-                        className="w-full border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
-                        onClick={() => router.push(redirectPath)}
-                    >
-                        {redirectText}
-                        {countdown > 0 && ` (${countdown}s)`}
-                    </Button>
-                )}
+                    {redirectPath && (
+                        <Button
+                            variant="outline"
+                            className="w-full border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+                            onClick={() => router.push(redirectPath)}
+                        >
+                            {redirectText}
+                            {countdown > 0 && ` (${countdown}s)`}
+                        </Button>
+                    )}
 
-                {showHomeButton && (
-                    <Button
-                        variant="outline"
-                        className="w-full border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
-                        onClick={() => router.push(Routes.HOME)}
-                    >
-                        Back to Home
-                    </Button>
-                )}
-            </div>
+                    {showHomeButton && (
+                        <Button
+                            variant="outline"
+                            className="w-full border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+                            onClick={() => router.push(Routes.HOME)}
+                        >
+                            Back to Home
+                        </Button>
+                    )}
+                </div>
+            )}
         </div>
     );
 };

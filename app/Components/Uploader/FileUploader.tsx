@@ -133,10 +133,10 @@ export const FileUploader = ({
         <div>
             <div
                 {...getRootProps()}
-                className={`flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-white p-6 transition-colors duration-200
-    ${isDragActive ? 'border-green-500 bg-green-50' : ''}
-    ${isProcessing ? 'cursor-not-allowed opacity-50' : ''}
-  `}
+                        className={`flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-white p-6 transition-colors duration-200
+        ${isDragActive ? 'border-green-500 bg-green-50' : ''}
+        ${isProcessing ? 'cursor-not-allowed opacity-50' : isDragActive ? 'cursor-copy' : 'cursor-pointer'}
+    `}
             >
                 <input {...getInputProps()} />
                 {files && files.length > 0 ? (
